@@ -3,6 +3,7 @@ import '@fontsource-variable/inter';
 import '@fontsource-variable/newsreader';
 import '@fontsource-variable/newsreader/wght-italic.css';
 import '../styles/global.css';
+import { withBase } from '../lib/url';
 
 interface Props {
   title: string;
@@ -46,6 +47,7 @@ const allJsonLd = [orgJsonLd, ...(jsonLd ? (Array.isArray(jsonLd) ? jsonLd : [js
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title>{title}</title>
     <meta name="description" content={description} />
+    <link rel="icon" type="image/svg+xml" href={withBase('/favicon.svg')} />
     <link rel="canonical" href={canonical} />
 
     <meta property="og:type" content={ogType} />

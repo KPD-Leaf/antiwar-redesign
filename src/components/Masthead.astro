@@ -21,6 +21,13 @@ const path = Astro.url.pathname;
 ---
 
 <header class="masthead">
+  <div class="notice">
+    <div class="container">
+      Unofficial redesign concept &mdash; not affiliated with Antiwar.com.
+      <a href={withBase('/about-this-redesign')}>About this project &rarr;</a>
+    </div>
+  </div>
+
   <div class="topbar">
     <div class="container topbar-inner">
       <span class="tagline">Your best source for antiwar news, viewpoints, and activities</span>
@@ -29,7 +36,7 @@ const path = Astro.url.pathname;
   </div>
 
   <div class="container main-row">
-    <a class="wordmark" href={withBase('/')} aria-label="Antiwar.com home">
+    <a class="wordmark" href={withBase('/')}>
       <span class="wordmark-anti">ANTIWAR</span><span class="wordmark-com">.COM</span>
       <span class="wordmark-est">est. 1995</span>
     </a>
@@ -79,6 +86,22 @@ const path = Astro.url.pathname;
   .masthead {
     background: var(--surface);
     border-bottom: 2px solid var(--ink);
+  }
+
+  .notice {
+    background: #1b2a4a;
+    color: #fff;
+    font-family: var(--font-sans);
+    font-size: var(--text-xs);
+    text-align: center;
+    padding-block: var(--sp-1);
+  }
+
+  .notice a {
+    color: #fff;
+    text-decoration: underline;
+    text-underline-offset: 2px;
+    font-weight: 600;
   }
 
   .topbar {

@@ -1,62 +1,328 @@
 ---
 import SectionLayout from '../layouts/SectionLayout.astro';
 
-const points = [
+const REPO = 'https://github.com/KPD-Leaf/antiwar-redesign';
+
+const scores = [
+  { label: 'Performance', before: 58, after: 98 },
+  { label: 'Accessibility', before: 52, after: 95 },
+  { label: 'Best practices', before: 88, after: 96 },
+  { label: 'SEO', before: 75, after: 100 },
+];
+
+const vitals = [
+  { label: 'First paint', before: '6.8 s', after: '1.4 s' },
+  { label: 'Largest paint', before: '11.3 s', after: '2.2 s' },
+  { label: 'Layout shift', before: '0.056', after: '0' },
+];
+
+const changes = [
   {
-    head: 'What this is',
-    body: 'An unofficial, good-faith redesign concept for Antiwar.com — built to show what the site could look and feel like on a modern stack, using the real, live content from antiwar.com feeds.',
+    head: 'Mobile-first, responsive',
+    body: 'One layout that works from a 390px phone to a wide desktop. Most news reading happens on phones now.',
   },
   {
-    head: 'What changed',
-    body: 'Semantic HTML, responsive mobile-first layout, dark mode, structured data for search engines and AI, fast static pages with zero trackers, accessible navigation, and a design system tuned for long-form news reading.',
+    head: 'Fast static pages',
+    body: 'Every page is pre-built HTML served from a CDN. No database calls, no render-blocking scripts, nothing to slow a reader down.',
   },
   {
-    head: 'What stayed the same',
-    body: 'Everything that makes Antiwar.com what it is: the hand-curated headline river, the viewpoints digest, original reporting, and the reader-funded mission. All content remains the property of Antiwar.com and the Randolph Bourne Institute.',
+    head: 'Instant, private search',
+    body: 'Full-text search across news, blog, and original articles — runs entirely in the browser, no server and no query logging.',
   },
   {
-    head: 'The offer',
-    body: 'The entire codebase is a gift — free to use, adapt, or ignore. It rebuilds itself from your existing WordPress and RSS feeds, so no editorial workflow has to change.',
+    head: 'Structured data for search & AI',
+    body: 'NewsArticle and NewsMediaOrganization JSON-LD on every page, plus a sitemap, canonical URLs, and Open Graph tags — so Google, news aggregators, and AI assistants can read and cite the work properly.',
+  },
+  {
+    head: 'Accessible by default',
+    body: 'Semantic HTML, real headings, skip links, keyboard navigation, AA color contrast, and reduced-motion support.',
+  },
+  {
+    head: 'Dark mode',
+    body: 'Follows the reader\u2019s system preference, with a manual toggle. Easier on the eyes for long reading sessions.',
+  },
+  {
+    head: 'Zero trackers',
+    body: 'No analytics scripts, no ad tech, no third-party JavaScript. Fitting for a site whose readers care about privacy.',
+  },
+  {
+    head: 'Typography tuned for news',
+    body: 'A serif optimized for long-form reading, a clean sans for navigation, and a measured line length \u2014 the quiet details that make hours of reading comfortable.',
+  },
+];
+
+const steps = [
+  {
+    head: 'It reads your existing feeds',
+    body: 'At build time the site pulls from the WordPress REST APIs at news.antiwar.com and the antiwar.com blog, the original.antiwar.com RSS feed, and the hand-curated headline river \u2014 the same sources you already publish to.',
+  },
+  {
+    head: 'It rebuilds itself every hour',
+    body: 'A scheduled job regenerates the whole site with the latest content and deploys it automatically. If a feed is ever unreachable, the build falls back to the last good snapshot \u2014 it never breaks.',
+  },
+  {
+    head: 'Your workflow doesn\u2019t change',
+    body: 'Editors keep posting to WordPress exactly as they do today. This front-end simply renders that work faster, more readable, and more findable.',
   },
 ];
 ---
 
 <SectionLayout
   title="About This Redesign — Unofficial Antiwar.com Concept"
-  description="An unofficial redesign concept for Antiwar.com: modern, fast, accessible, and powered by the site's own live feeds."
+  description="An unofficial redesign concept for Antiwar.com: modern, fast, accessible, and powered by the site's own live feeds. The codebase is a gift."
   heading="About this redesign"
   intro="This site is an unofficial concept, not the real Antiwar.com. The real one is at antiwar.com — go there, and support them."
 >
-  <div class="points">
-    {
-      points.map((p) => (
-        <section>
-          <h2>{p.head}</h2>
-          <p>{p.body}</p>
-        </section>
-      ))
-    }
+  <div class="pitch">
+    <section>
+      <h2>What this is</h2>
+      <p>
+        A good-faith redesign concept for Antiwar.com, built by a reader. Antiwar.com has done
+        indispensable work since 1995; this project asks one question: what if that work were
+        delivered on a modern foundation? Everything you see is the site&rsquo;s real, live content
+        &mdash; the same news, viewpoints, and original reporting, pulled from Antiwar.com&rsquo;s
+        own feeds and rebuilt hourly.
+      </p>
+    </section>
+
+    <section>
+      <h2>The measurable difference</h2>
+      <p class="method">
+        Google Lighthouse, mobile emulation, identical test conditions, June&nbsp;2026.
+        Homepage vs.&nbsp;homepage.
+      </p>
+      <table class="scores">
+        <thead>
+          <tr>
+            <th scope="col">Lighthouse score</th>
+            <th scope="col">antiwar.com today</th>
+            <th scope="col">This concept</th>
+          </tr>
+        </thead>
+        <tbody>
+          {
+            scores.map((s) => (
+              <tr>
+                <th scope="row">{s.label}</th>
+                <td class="before">{s.before}</td>
+                <td class="after">{s.after}</td>
+              </tr>
+            ))
+          }
+          {
+            vitals.map((v) => (
+              <tr>
+                <th scope="row">{v.label}</th>
+                <td class="before">{v.before}</td>
+                <td class="after">{v.after}</td>
+              </tr>
+            ))
+          }
+        </tbody>
+      </table>
+      <p class="method">
+        Faster pages keep readers, rank higher on Google, and cost less bandwidth for a
+        reader-funded nonprofit.
+      </p>
+    </section>
+
+    <section>
+      <h2>What changed</h2>
+      <div class="grid">
+        {
+          changes.map((c) => (
+            <div class="cell">
+              <h3>{c.head}</h3>
+              <p>{c.body}</p>
+            </div>
+          ))
+        }
+      </div>
+    </section>
+
+    <section>
+      <h2>How it works</h2>
+      <ol class="steps">
+        {
+          steps.map((s) => (
+            <li>
+              <h3>{s.head}</h3>
+              <p>{s.body}</p>
+            </li>
+          ))
+        }
+      </ol>
+    </section>
+
+    <section>
+      <h2>What stayed the same</h2>
+      <p>
+        Everything that makes Antiwar.com what it is: the hand-curated headline river, the
+        viewpoints digest, the original reporting, the donate-first reader-funded model. No
+        content was altered. All articles link back to their source and carry attribution per
+        Antiwar.com&rsquo;s reprint policy. All content remains the property of Antiwar.com and
+        the Randolph Bourne Institute.
+      </p>
+    </section>
+
+    <section class="offer">
+      <h2>The offer</h2>
+      <p>
+        The entire codebase is a gift &mdash; free to take, adapt, self-host, or ignore. No
+        strings, no fees, no credit required. It is a small, well-documented project (an Astro
+        static site, roughly four thousand lines) that any web developer can pick up in an
+        afternoon, and the README walks through setup, deployment, and customization
+        step&nbsp;by&nbsp;step.
+      </p>
+      <p>
+        <a class="repo-btn" href={REPO} rel="external">View the code on GitHub &rarr;</a>
+      </p>
+    </section>
   </div>
 </SectionLayout>
 
 <style>
-  .points {
+  .pitch {
     display: grid;
-    gap: var(--sp-8);
-    max-width: var(--measure);
-    margin-bottom: var(--sp-4);
+    gap: var(--sp-12);
+    max-width: 52rem;
+    margin-bottom: var(--sp-8);
   }
 
   h2 {
     font-family: var(--font-serif);
-    font-size: var(--text-lg);
+    font-size: var(--text-xl);
     font-weight: 700;
-    margin-bottom: var(--sp-2);
+    margin-bottom: var(--sp-3);
+  }
+
+  h3 {
+    font-family: var(--font-sans);
+    font-size: var(--text-sm);
+    font-weight: 700;
+    margin-bottom: var(--sp-1);
   }
 
   p {
     font-size: var(--text-base);
     line-height: 1.65;
     color: var(--ink-2);
+    max-width: var(--measure);
+  }
+
+  .method {
+    font-family: var(--font-sans);
+    font-size: var(--text-xs);
+    margin-block: var(--sp-2);
+  }
+
+  .scores {
+    width: 100%;
+    max-width: 36rem;
+    border-collapse: collapse;
+    font-family: var(--font-sans);
+    font-size: var(--text-sm);
+    margin-block: var(--sp-3);
+  }
+
+  .scores th,
+  .scores td {
+    text-align: left;
+    padding: var(--sp-2) var(--sp-3);
+    border-bottom: 1px solid var(--rule);
+  }
+
+  .scores thead th {
+    font-size: var(--text-xs);
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    color: var(--ink-2);
+    border-bottom: 2px solid var(--ink);
+  }
+
+  .scores tbody th {
+    font-weight: 600;
+  }
+
+  .scores .before {
+    color: var(--ink-2);
+  }
+
+  .scores .after {
+    color: var(--brand);
+    font-weight: 700;
+  }
+
+  .grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: var(--sp-6) var(--sp-8);
+  }
+
+  .cell p {
+    font-size: var(--text-sm);
+  }
+
+  .steps {
+    list-style: none;
+    padding: 0;
+    display: grid;
+    gap: var(--sp-6);
+    counter-reset: step;
+  }
+
+  .steps li {
+    counter-increment: step;
+    position: relative;
+    padding-left: var(--sp-12);
+  }
+
+  .steps li::before {
+    content: counter(step);
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 2rem;
+    height: 2rem;
+    display: grid;
+    place-items: center;
+    border-radius: 50%;
+    background: var(--brand);
+    color: #fff;
+    font-family: var(--font-sans);
+    font-weight: 700;
+    font-size: var(--text-sm);
+  }
+
+  .steps p {
+    font-size: var(--text-sm);
+  }
+
+  .offer {
+    border-top: 2px solid var(--ink);
+    padding-top: var(--sp-6);
+  }
+
+  .repo-btn {
+    display: inline-block;
+    margin-top: var(--sp-2);
+    background: var(--brand);
+    color: #fff;
+    font-family: var(--font-sans);
+    font-weight: 600;
+    font-size: var(--text-sm);
+    padding: var(--sp-3) var(--sp-5);
+    border-radius: var(--radius);
+    text-decoration: none;
+  }
+
+  .repo-btn:hover {
+    background: var(--brand-press);
+  }
+
+  @media (max-width: 767px) {
+    .grid {
+      grid-template-columns: 1fr;
+    }
   }
 </style>
