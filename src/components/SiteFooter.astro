@@ -108,11 +108,8 @@ const columns = [
   }
 
   .footer-wordmark span {
-    color: var(--brand);
-  }
-
-  :global([data-theme='dark']) .footer-wordmark span {
-    color: var(--brand);
+    /* The footer is always dark, so use the light brand red in both themes */
+    color: #d4565a;
   }
 
   .footer-mission {
