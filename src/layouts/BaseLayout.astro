@@ -1,0 +1,78 @@
+---
+import '@fontsource-variable/inter';
+import '@fontsource-variable/newsreader';
+import '@fontsource-variable/newsreader/wght-italic.css';
+import '../styles/global.css';
+
+interface Props {
+  title: string;
+  description: string;
+  ogType?: string;
+  ogImage?: string;
+  canonical?: string;
+  jsonLd?: object | object[];
+}
+
+const {
+  title,
+  description,
+  ogType = 'website',
+  ogImage,
+  canonical = new URL(Astro.url.pathname, Astro.site).href,
+  jsonLd,
+} = Astro.props;
+
+const orgJsonLd = {
+  '@context': 'https://schema.org',
+  '@type': 'NewsMediaOrganization',
+  name: 'Antiwar.com',
+  url: 'https://www.antiwar.com',
+  slogan: 'Your best source for antiwar news, viewpoints, and activities',
+  foundingDate: '1995',
+  parentOrganization: {
+    '@type': 'Organization',
+    name: 'Randolph Bourne Institute',
+  },
+  nonprofitStatus: 'Nonprofit501c3',
+};
+
+const allJsonLd = [orgJsonLd, ...(jsonLd ? (Array.isArray(jsonLd) ? jsonLd : [jsonLd]) : [])];
+---
+
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>{title}</title>
+    <meta name="description" content={description} />
+    <link rel="canonical" href={canonical} />
+
+    <meta property="og:type" content={ogType} />
+    <meta property="og:title" content={title} />
+    <meta property="og:description" content={description} />
+    <meta property="og:url" content={canonical} />
+    <meta property="og:site_name" content="Antiwar.com" />
+    {ogImage && <meta property="og:image" content={ogImage} />}
+    <meta name="twitter:card" content={ogImage ? 'summary_large_image' : 'summary'} />
+    <meta name="twitter:site" content="@Antiwarcom" />
+
+    <script is:inline type="application/ld+json" set:html={JSON.stringify(allJsonLd)} />
+
+    <!-- Theme: resolve before paint to avoid flash -->
+    <script is:inline>
+      (() => {
+        const stored = localStorage.getItem('theme');
+        if (stored === 'dark' || stored === 'light') {
+          document.documentElement.dataset.theme = stored;
+        }
+      })();
+    </script>
+
+    <link rel="alternate" type="application/rss+xml" title="Antiwar.com News" href="https://news.antiwar.com/feed/" />
+  </head>
+  <body>
+    <a class="skip-link" href="#main">Skip to content</a>
+    <slot />
+  </body>
+</html>
