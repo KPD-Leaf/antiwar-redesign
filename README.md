@@ -12,12 +12,12 @@ Same content, same homepage, measured under identical conditions (Google Lightho
 
 | Lighthouse (mobile) | antiwar.com today | This concept |
 | --- | --- | --- |
-| Performance | 58 | **98** |
-| Accessibility | 52 | **95** |
-| Best practices | 88 | **96** |
+| Performance | 58 | **100** |
+| Accessibility | 52 | **100** |
+| Best practices | 88 | **100** |
 | SEO | 75 | **100** |
-| First paint | 6.8 s | **1.4 s** |
-| Largest paint | 11.3 s | **2.2 s** |
+| First paint | 6.8 s | **0.9 s** |
+| Largest paint | 11.3 s | **1.8 s** |
 | Layout shift | 0.056 | **0** |
 
 Faster pages keep readers, rank higher on search, and cost less bandwidth for a reader-funded nonprofit.
