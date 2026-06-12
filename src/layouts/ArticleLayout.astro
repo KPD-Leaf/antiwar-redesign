@@ -5,6 +5,7 @@ import SiteFooter from '../components/SiteFooter.astro';
 import DonateBand from '../components/DonateBand.astro';
 import type { Article } from '../lib/types';
 import { formatDateTime, readingTime } from '../lib/format';
+import { withBase } from '../lib/url';
 
 interface Props {
   article: Article;
@@ -40,7 +41,7 @@ const jsonLd = {
     <article class="article container" data-pagefind-body>
       <header class="article-header">
         <p class="crumb">
-          <a href={sectionHref}>{sectionLabel}</a>
+          <a href={withBase(sectionHref)}>{sectionLabel}</a>
         </p>
         <h1>{article.title}</h1>
         <p class="byline">

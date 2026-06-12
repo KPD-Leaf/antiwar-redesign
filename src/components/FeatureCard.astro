@@ -1,6 +1,7 @@
 ---
 import type { Article } from '../lib/types';
 import { formatDate } from '../lib/format';
+import { withBase } from '../lib/url';
 
 interface Props {
   article: Article;
@@ -9,7 +10,7 @@ interface Props {
 }
 
 const { article, showImage = true, kicker } = Astro.props;
-const href = article.source === 'original' ? article.url : `/${article.source}/${article.slug}`;
+const href = article.source === 'original' ? article.url : withBase(`/${article.source}/${article.slug}`);
 ---
 
 <article class="card">

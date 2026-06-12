@@ -11,6 +11,7 @@ import DonateBand from '../components/DonateBand.astro';
 import NewsletterBand from '../components/NewsletterBand.astro';
 import { loadContent } from '../lib/loaders';
 import { formatDate } from '../lib/format';
+import { withBase } from '../lib/url';
 
 const { news, blog, original, river, viewpoints } = await loadContent();
 
@@ -76,7 +77,7 @@ const blogMore = blog.slice(1, 6);
             {
               moreNews.map((a) => (
                 <li>
-                  <a href={`/news/${a.slug}`}>{a.title}</a>
+                  <a href={withBase(`/news/${a.slug}`)}>{a.title}</a>
                   <p class="compact-meta">
                     <span class="compact-author">{a.author}</span>
                     <span aria-hidden="true"> · </span>
@@ -95,7 +96,7 @@ const blogMore = blog.slice(1, 6);
             {
               blogMore.map((a) => (
                 <li>
-                  <a href={`/blog/${a.slug}`}>{a.title}</a>
+                  <a href={withBase(`/blog/${a.slug}`)}>{a.title}</a>
                   <p class="compact-meta">
                     <span class="compact-author">{a.author}</span>
                     <span aria-hidden="true"> · </span>

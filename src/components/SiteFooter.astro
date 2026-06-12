@@ -1,4 +1,6 @@
 ---
+import { withBase } from '../lib/url';
+
 const year = new Date().getFullYear();
 
 const columns = [
@@ -60,7 +62,7 @@ const columns = [
             <ul>
               {col.links.map((l) => (
                 <li>
-                  <a href={l.href}>{l.label}</a>
+                  <a href={withBase(l.href)}>{l.label}</a>
                 </li>
               ))}
             </ul>
@@ -73,7 +75,7 @@ const columns = [
       <p>© {year} Antiwar.com. Content may be reprinted with attribution per our reprint policy.</p>
       <p class="footer-demo-note">
         Unofficial redesign concept — all content © Antiwar.com / Randolph Bourne Institute.
-        <a href="/about-this-redesign">About this redesign</a>
+        <a href={withBase('/about-this-redesign')}>About this redesign</a>
       </p>
     </div>
   </div>

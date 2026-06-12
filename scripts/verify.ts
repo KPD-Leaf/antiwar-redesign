@@ -13,7 +13,8 @@ import { chromium } from 'playwright';
 import { mkdirSync } from 'node:fs';
 
 const PORT = process.env.PORT ?? '4321';
-const BASE = `http://localhost:${PORT}`;
+// Site is served under the GitHub Pages base path, locally too (astro preview).
+const BASE = `http://localhost:${PORT}/antiwar-redesign`;
 const OUT = new URL('../shots/', import.meta.url).pathname;
 
 const PAGES: Record<string, string> = {

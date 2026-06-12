@@ -1,4 +1,6 @@
 ---
+import { withBase } from '../lib/url';
+
 const today = new Intl.DateTimeFormat('en-US', {
   weekday: 'long',
   month: 'long',
@@ -8,11 +10,11 @@ const today = new Intl.DateTimeFormat('en-US', {
 }).format(new Date());
 
 const nav = [
-  { label: 'News', href: '/news' },
-  { label: 'Viewpoints', href: '/viewpoints' },
-  { label: 'Original', href: '/original' },
-  { label: 'Blog', href: '/blog' },
-  { label: 'Search', href: '/search' },
+  { label: 'News', href: withBase('/news') },
+  { label: 'Viewpoints', href: withBase('/viewpoints') },
+  { label: 'Original', href: withBase('/original') },
+  { label: 'Blog', href: withBase('/blog') },
+  { label: 'Search', href: withBase('/search') },
 ];
 
 const path = Astro.url.pathname;
@@ -27,7 +29,7 @@ const path = Astro.url.pathname;
   </div>
 
   <div class="container main-row">
-    <a class="wordmark" href="/" aria-label="Antiwar.com home">
+    <a class="wordmark" href={withBase('/')} aria-label="Antiwar.com home">
       <span class="wordmark-anti">ANTIWAR</span><span class="wordmark-com">.COM</span>
       <span class="wordmark-est">est. 1995</span>
     </a>
@@ -56,7 +58,7 @@ const path = Astro.url.pathname;
           <path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8z"></path>
         </svg>
       </button>
-      <a class="donate-btn" href="/donate">Donate</a>
+      <a class="donate-btn" href={withBase('/donate')}>Donate</a>
     </div>
   </div>
 </header>

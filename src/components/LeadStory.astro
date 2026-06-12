@@ -1,13 +1,14 @@
 ---
 import type { Article } from '../lib/types';
 import { formatDateTime, readingTime } from '../lib/format';
+import { withBase } from '../lib/url';
 
 interface Props {
   article: Article;
 }
 
 const { article } = Astro.props;
-const href = article.source === 'original' ? article.url : `/${article.source}/${article.slug}`;
+const href = article.source === 'original' ? article.url : withBase(`/${article.source}/${article.slug}`);
 ---
 
 <article class="lead">

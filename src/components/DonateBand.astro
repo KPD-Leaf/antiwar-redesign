@@ -1,4 +1,6 @@
 ---
+import { withBase } from '../lib/url';
+
 interface Props {
   compact?: boolean;
 }
@@ -15,7 +17,7 @@ const { compact = false } = Astro.props;
         readers like you.
       </p>
     </div>
-    <a class="donate-cta" href="/donate">Donate</a>
+    <a class="donate-cta" href={withBase('/donate')}>Donate</a>
   </div>
 </aside>
 
