@@ -1,0 +1,182 @@
+---
+const year = new Date().getFullYear();
+
+const columns = [
+  {
+    title: 'Read',
+    links: [
+      { label: 'Latest News', href: '/news' },
+      { label: 'Viewpoints', href: '/viewpoints' },
+      { label: 'Original', href: '/original' },
+      { label: 'Blog', href: '/blog' },
+    ],
+  },
+  {
+    title: 'About',
+    links: [
+      { label: 'Who We Are', href: 'https://www.antiwar.com/who.php' },
+      { label: 'Submission Guidelines', href: 'https://www.antiwar.com/submissions.php' },
+      { label: 'Reprint Policy', href: 'https://www.antiwar.com/reprint.php' },
+      { label: 'Privacy Policy', href: 'https://www.antiwar.com/privacy.php' },
+    ],
+  },
+  {
+    title: 'Follow',
+    links: [
+      { label: 'News RSS', href: 'https://news.antiwar.com/feed/' },
+      { label: 'Original RSS', href: 'https://original.antiwar.com/feed/' },
+      { label: 'Newsletter', href: 'https://www.antiwar.com/newsletter/' },
+      { label: 'X / Twitter', href: 'https://twitter.com/Antiwarcom' },
+    ],
+  },
+  {
+    title: 'Support',
+    links: [
+      { label: 'Donate', href: '/donate' },
+      { label: 'Shop', href: 'https://www.antiwar.com/shops.php' },
+    ],
+  },
+];
+---
+
+<footer class="footer">
+  <div class="container">
+    <div class="footer-grid">
+      <div class="footer-brand">
+        <p class="footer-wordmark">
+          ANTIWAR<span>.COM</span>
+        </p>
+        <p class="footer-mission">
+          Opposing war and promoting a noninterventionist foreign policy since 1995. A project of the
+          Randolph Bourne Institute.
+        </p>
+        <p class="footer-legal">501(c)(3) nonprofit · EIN #71-0929026</p>
+      </div>
+
+      {
+        columns.map((col) => (
+          <nav aria-label={col.title}>
+            <h2>{col.title}</h2>
+            <ul>
+              {col.links.map((l) => (
+                <li>
+                  <a href={l.href}>{l.label}</a>
+                </li>
+              ))}
+            </ul>
+          </nav>
+        ))
+      }
+    </div>
+
+    <div class="footer-bottom">
+      <p>© {year} Antiwar.com. Content may be reprinted with attribution per our reprint policy.</p>
+      <p class="footer-demo-note">
+        Unofficial redesign concept — all content © Antiwar.com / Randolph Bourne Institute.
+        <a href="/about-this-redesign">About this redesign</a>
+      </p>
+    </div>
+  </div>
+</footer>
+
+<style>
+  .footer {
+    margin-top: var(--sp-16);
+    background: var(--ink);
+    color: var(--paper);
+    padding-block: var(--sp-12) var(--sp-6);
+  }
+
+  :global([data-theme='dark']) .footer {
+    background: var(--surface);
+    border-top: 1px solid var(--rule);
+  }
+
+  .footer-grid {
+    display: grid;
+    grid-template-columns: 2fr repeat(4, 1fr);
+    gap: var(--sp-8);
+  }
+
+  .footer-wordmark {
+    font-family: var(--font-serif);
+    font-weight: 800;
+    font-size: var(--text-xl);
+    letter-spacing: -0.02em;
+  }
+
+  .footer-wordmark span {
+    color: var(--brand);
+  }
+
+  :global([data-theme='dark']) .footer-wordmark span {
+    color: var(--brand);
+  }
+
+  .footer-mission {
+    margin-top: var(--sp-3);
+    font-size: var(--text-sm);
+    line-height: 1.6;
+    opacity: 0.75;
+    max-width: 36ch;
+  }
+
+  .footer-legal {
+    margin-top: var(--sp-3);
+    font-size: var(--text-xs);
+    opacity: 0.55;
+  }
+
+  h2 {
+    font-family: var(--font-sans);
+    font-size: var(--text-xs);
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    opacity: 0.55;
+    margin-bottom: var(--sp-3);
+  }
+
+  ul {
+    list-style: none;
+    padding: 0;
+    display: grid;
+    gap: var(--sp-2);
+    font-size: var(--text-sm);
+  }
+
+  ul a {
+    opacity: 0.85;
+  }
+
+  ul a:hover {
+    opacity: 1;
+    color: inherit;
+    text-decoration: underline;
+  }
+
+  .footer-bottom {
+    margin-top: var(--sp-12);
+    padding-top: var(--sp-4);
+    border-top: 1px solid rgb(255 255 255 / 0.15);
+    display: flex;
+    justify-content: space-between;
+    gap: var(--sp-4);
+    flex-wrap: wrap;
+    font-size: var(--text-xs);
+    opacity: 0.6;
+  }
+
+  .footer-demo-note a {
+    text-decoration: underline;
+  }
+
+  @media (max-width: 1023px) {
+    .footer-grid {
+      grid-template-columns: 1fr 1fr;
+    }
+
+    .footer-brand {
+      grid-column: 1 / -1;
+    }
+  }
+</style>

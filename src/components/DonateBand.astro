@@ -1,0 +1,91 @@
+---
+interface Props {
+  compact?: boolean;
+}
+
+const { compact = false } = Astro.props;
+---
+
+<aside class:list={['donate-band', { compact }]} aria-label="Support Antiwar.com">
+  <div class="donate-inner">
+    <div class="donate-copy">
+      <p class="donate-head">Reader-funded since 1995</p>
+      <p class="donate-sub">
+        No ads from defense contractors. No government money. Antiwar.com runs on donations from
+        readers like you.
+      </p>
+    </div>
+    <a class="donate-cta" href="/donate">Donate</a>
+  </div>
+</aside>
+
+<style>
+  .donate-band {
+    background: var(--navy);
+    color: #fff;
+    border-radius: var(--radius-lg);
+    padding: var(--sp-6);
+  }
+
+  :global([data-theme='dark']) .donate-band {
+    background: var(--surface);
+    border: 1px solid var(--rule);
+    color: var(--ink);
+  }
+
+  .donate-inner {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: var(--sp-6);
+    flex-wrap: wrap;
+  }
+
+  .donate-head {
+    font-family: var(--font-serif);
+    font-size: var(--text-lg);
+    font-weight: 700;
+    line-height: 1.2;
+  }
+
+  .donate-sub {
+    margin-top: var(--sp-1);
+    font-size: var(--text-sm);
+    line-height: 1.5;
+    opacity: 0.8;
+    max-width: 52ch;
+  }
+
+  .donate-cta {
+    background: var(--brand);
+    color: #fff;
+    font-family: var(--font-sans);
+    font-weight: 700;
+    font-size: var(--text-base);
+    padding: var(--sp-3) var(--sp-8);
+    border-radius: var(--radius);
+    white-space: nowrap;
+  }
+
+  .donate-cta:hover {
+    background: var(--brand-press);
+    color: #fff;
+  }
+
+  .compact {
+    padding: var(--sp-4);
+  }
+
+  .compact .donate-head {
+    font-size: var(--text-base);
+  }
+
+  .compact .donate-sub {
+    font-size: var(--text-xs);
+  }
+
+  .compact .donate-cta {
+    padding: var(--sp-2) var(--sp-6);
+    font-size: var(--text-sm);
+  }
+</style>

@@ -1,0 +1,160 @@
+---
+import SectionLayout from '../layouts/SectionLayout.astro';
+
+const reasons = [
+  {
+    head: 'Independent since 1995',
+    body: 'Three decades of reporting on war and foreign policy with no government grants, no corporate sponsors, and no defense-industry advertising.',
+  },
+  {
+    head: '100% reader-funded',
+    body: 'Donations from readers are the only thing keeping the lights on. When you give, you are the publisher.',
+  },
+  {
+    head: 'Tax-deductible',
+    body: 'Antiwar.com is a project of the Randolph Bourne Institute, a 501(c)(3) nonprofit. EIN #71-0929026. Donations are tax-deductible to the full extent of the law.',
+  },
+];
+
+const ways = [
+  { label: 'Donate online', href: 'https://www.antiwar.com/donate/', note: 'Card, PayPal, or bank — one-time or monthly' },
+  { label: 'Other ways to give', href: 'https://www.antiwar.com/donate/', note: 'Check, stock, crypto, or planned giving' },
+  { label: 'Shop the store', href: 'https://www.antiwar.com/shops.php', note: 'Books and merch that support the mission' },
+];
+---
+
+<SectionLayout
+  title="Donate — Support Antiwar.com"
+  description="Antiwar.com is 100% reader-funded. Support independent antiwar journalism with a tax-deductible donation."
+  heading="Support Antiwar.com"
+  intro="No ads from defense contractors. No government money. Just readers who believe the case against war deserves a full-time newsroom."
+>
+  <div class="donate-grid">
+    <section class="reasons" aria-label="Why give">
+      {
+        reasons.map((r) => (
+          <div class="reason">
+            <h2>{r.head}</h2>
+            <p>{r.body}</p>
+          </div>
+        ))
+      }
+    </section>
+
+    <aside class="give-card" aria-label="Ways to give">
+      <p class="give-head">Ways to give</p>
+      <ul>
+        {
+          ways.map((w) => (
+            <li>
+              <a href={w.href} rel="external">{w.label} &rarr;</a>
+              <p>{w.note}</p>
+            </li>
+          ))
+        }
+      </ul>
+      <a class="give-cta" href="https://www.antiwar.com/donate/" rel="external">Donate now</a>
+      <p class="give-fine">Donations are processed securely on antiwar.com.</p>
+    </aside>
+  </div>
+</SectionLayout>
+
+<style>
+  .donate-grid {
+    display: grid;
+    grid-template-columns: 7fr 5fr;
+    gap: var(--sp-12);
+    margin-bottom: var(--sp-4);
+    align-items: start;
+  }
+
+  .reasons {
+    display: grid;
+    gap: var(--sp-6);
+  }
+
+  .reason h2 {
+    font-family: var(--font-serif);
+    font-size: var(--text-lg);
+    font-weight: 700;
+    margin-bottom: var(--sp-2);
+  }
+
+  .reason p {
+    font-size: var(--text-base);
+    line-height: 1.6;
+    color: var(--ink-2);
+    max-width: 58ch;
+  }
+
+  .give-card {
+    background: var(--surface);
+    border: 1px solid var(--rule);
+    border-top: 3px solid var(--brand);
+    border-radius: var(--radius-lg);
+    padding: var(--sp-6);
+    box-shadow: var(--shadow-card);
+  }
+
+  .give-head {
+    font-family: var(--font-sans);
+    font-size: var(--text-sm);
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    margin-bottom: var(--sp-4);
+  }
+
+  .give-card ul {
+    list-style: none;
+    padding: 0;
+    display: grid;
+    gap: var(--sp-4);
+  }
+
+  .give-card li a {
+    font-family: var(--font-serif);
+    font-size: var(--text-base);
+    font-weight: 700;
+  }
+
+  .give-card li a:hover {
+    color: var(--brand);
+  }
+
+  .give-card li p {
+    font-size: var(--text-xs);
+    color: var(--ink-2);
+    margin-top: 2px;
+  }
+
+  .give-cta {
+    display: block;
+    margin-top: var(--sp-6);
+    background: var(--brand);
+    color: #fff;
+    text-align: center;
+    font-family: var(--font-sans);
+    font-weight: 700;
+    padding: var(--sp-3);
+    border-radius: var(--radius);
+  }
+
+  .give-cta:hover {
+    background: var(--brand-press);
+    color: #fff;
+  }
+
+  .give-fine {
+    margin-top: var(--sp-3);
+    font-size: var(--text-xs);
+    color: var(--ink-2);
+    text-align: center;
+  }
+
+  @media (max-width: 1023px) {
+    .donate-grid {
+      grid-template-columns: 1fr;
+    }
+  }
+</style>

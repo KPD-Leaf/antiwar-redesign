@@ -1,0 +1,76 @@
+---
+import SectionLayout from '../../layouts/SectionLayout.astro';
+import SectionHeader from '../../components/SectionHeader.astro';
+import FeatureCard from '../../components/FeatureCard.astro';
+import RiverList from '../../components/RiverList.astro';
+import { loadContent } from '../../lib/loaders';
+
+const { news, river } = await loadContent();
+---
+
+<SectionLayout
+  title="News — Antiwar.com"
+  description="The latest antiwar news: original reporting from Antiwar.com plus a curated river of headlines from around the world."
+  heading="News"
+  intro="Original reporting from the Antiwar.com newsroom, plus a hand-curated river of the most important war and foreign-policy headlines from around the world."
+>
+  <div class="news-grid">
+    <section aria-label="Latest reporting">
+      <SectionHeader title="Latest Reporting" />
+      <div class="report-list">
+        {news.map((a) => <FeatureCard article={a} showImage={Boolean(a.image)} />)}
+      </div>
+    </section>
+
+    <section aria-label="Headline river">
+      <SectionHeader title="Headline River" />
+      <RiverList groups={river} />
+      <p class="archive-note">
+        Older headlines live in the
+        <a href="https://www.antiwar.com/latest.php" rel="external">Antiwar.com archive</a>.
+      </p>
+    </section>
+  </div>
+</SectionLayout>
+
+<style>
+  .news-grid {
+    display: grid;
+    grid-template-columns: 7fr 5fr;
+    gap: var(--sp-12);
+    margin-bottom: var(--sp-4);
+  }
+
+  .news-grid > section {
+    min-width: 0;
+  }
+
+  .report-list {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: var(--sp-8) var(--sp-6);
+  }
+
+  .archive-note {
+    margin-top: var(--sp-6);
+    font-family: var(--font-sans);
+    font-size: var(--text-xs);
+    color: var(--ink-2);
+  }
+
+  .archive-note a {
+    text-decoration: underline;
+  }
+
+  @media (max-width: 1023px) {
+    .news-grid {
+      grid-template-columns: 1fr;
+    }
+  }
+
+  @media (max-width: 639px) {
+    .report-list {
+      grid-template-columns: 1fr;
+    }
+  }
+</style>

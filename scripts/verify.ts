@@ -18,8 +18,23 @@ const OUT = new URL('../shots/', import.meta.url).pathname;
 
 const PAGES: Record<string, string> = {
   home: '/',
-  // Phase 2 additions: article, viewpoints, original, blog, donate, pitch
+  news: '/news',
+  viewpoints: '/viewpoints',
+  original: '/original',
+  blog: '/blog',
+  donate: '/donate',
+  search: '/search',
+  pitch: '/about-this-redesign',
 };
+
+// Article shot: resolve the first news slug from the built snapshot.
+try {
+  const { default: snapshot } = await import('../src/data/snapshot.json');
+  const slug = (snapshot as { news?: Array<{ slug: string }> }).news?.[0]?.slug;
+  if (slug) PAGES.article = `/news/${slug}`;
+} catch {
+  /* snapshot absent — skip article shot */
+}
 
 const VIEWPORTS = {
   desktop: { width: 1440, height: 900 },

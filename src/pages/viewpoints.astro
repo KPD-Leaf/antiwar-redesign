@@ -1,0 +1,59 @@
+---
+import SectionLayout from '../layouts/SectionLayout.astro';
+import ViewpointList from '../components/ViewpointList.astro';
+import NewsletterBand from '../components/NewsletterBand.astro';
+import DonateBand from '../components/DonateBand.astro';
+import { loadContent } from '../lib/loaders';
+
+const { viewpoints } = await loadContent();
+const mid = Math.ceil(viewpoints.length / 2);
+---
+
+<SectionLayout
+  title="Viewpoints — Antiwar.com"
+  description="Curated antiwar opinion and analysis from writers and outlets across the political spectrum."
+  heading="Viewpoints"
+  intro="Curated opinion and analysis from across the political spectrum — the case against war, made daily."
+>
+  <div class="vp-grid">
+    <ViewpointList items={viewpoints.slice(0, mid)} />
+    <ViewpointList items={viewpoints.slice(mid)} />
+  </div>
+
+  <div class="vp-bands">
+    <NewsletterBand />
+    <DonateBand compact />
+  </div>
+</SectionLayout>
+
+<style>
+  .vp-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 0 var(--sp-12);
+  }
+
+  .vp-grid > :global(*) {
+    min-width: 0;
+  }
+
+  .vp-bands {
+    margin-block: var(--sp-12) var(--sp-4);
+    display: grid;
+    grid-template-columns: 1fr 2fr;
+    gap: var(--sp-6);
+    align-items: start;
+  }
+
+  @media (max-width: 1023px) {
+    .vp-bands {
+      grid-template-columns: 1fr;
+    }
+  }
+
+  @media (max-width: 767px) {
+    .vp-grid {
+      grid-template-columns: 1fr;
+    }
+  }
+</style>

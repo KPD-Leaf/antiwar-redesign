@@ -1,0 +1,18 @@
+---
+import ArticleLayout from '../../layouts/ArticleLayout.astro';
+import { loadContent } from '../../lib/loaders';
+import type { Article } from '../../lib/types';
+
+export async function getStaticPaths() {
+  const { news } = await loadContent();
+  return news.map((article) => ({ params: { slug: article.slug }, props: { article } }));
+}
+
+interface Props {
+  article: Article;
+}
+
+const { article } = Astro.props;
+---
+
+<ArticleLayout article={article} sectionLabel="News" sectionHref="/news" />

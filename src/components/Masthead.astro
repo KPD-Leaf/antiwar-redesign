@@ -1,0 +1,258 @@
+---
+const today = new Intl.DateTimeFormat('en-US', {
+  weekday: 'long',
+  month: 'long',
+  day: 'numeric',
+  year: 'numeric',
+  timeZone: 'America/New_York',
+}).format(new Date());
+
+const nav = [
+  { label: 'News', href: '/news' },
+  { label: 'Viewpoints', href: '/viewpoints' },
+  { label: 'Original', href: '/original' },
+  { label: 'Blog', href: '/blog' },
+  { label: 'Search', href: '/search' },
+];
+
+const path = Astro.url.pathname;
+---
+
+<header class="masthead">
+  <div class="topbar">
+    <div class="container topbar-inner">
+      <span class="tagline">Your best source for antiwar news, viewpoints, and activities</span>
+      <span class="dateline">{today}</span>
+    </div>
+  </div>
+
+  <div class="container main-row">
+    <a class="wordmark" href="/" aria-label="Antiwar.com home">
+      <span class="wordmark-anti">ANTIWAR</span><span class="wordmark-com">.COM</span>
+      <span class="wordmark-est">est. 1995</span>
+    </a>
+
+    <nav aria-label="Primary">
+      <ul class="nav-list">
+        {
+          nav.map((item) => (
+            <li>
+              <a href={item.href} aria-current={path.startsWith(item.href) ? 'page' : undefined}>
+                {item.label}
+              </a>
+            </li>
+          ))
+        }
+      </ul>
+    </nav>
+
+    <div class="actions">
+      <button id="theme-toggle" type="button" aria-label="Toggle dark mode" title="Toggle dark mode">
+        <svg class="icon-sun" width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true">
+          <circle cx="12" cy="12" r="4.5"></circle>
+          <path d="M12 2v2.5M12 19.5V22M2 12h2.5M19.5 12H22M4.6 4.6l1.8 1.8M17.6 17.6l1.8 1.8M19.4 4.6l-1.8 1.8M6.4 17.6l-1.8 1.8"></path>
+        </svg>
+        <svg class="icon-moon" width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+          <path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8z"></path>
+        </svg>
+      </button>
+      <a class="donate-btn" href="/donate">Donate</a>
+    </div>
+  </div>
+</header>
+
+<script>
+  const btn = document.getElementById('theme-toggle');
+  btn?.addEventListener('click', () => {
+    const root = document.documentElement;
+    const prefersDark = matchMedia('(prefers-color-scheme: dark)').matches;
+    const current = root.dataset.theme ?? (prefersDark ? 'dark' : 'light');
+    const next = current === 'dark' ? 'light' : 'dark';
+    root.dataset.theme = next;
+    localStorage.setItem('theme', next);
+  });
+</script>
+
+<style>
+  .masthead {
+    background: var(--surface);
+    border-bottom: 2px solid var(--ink);
+  }
+
+  .topbar {
+    border-bottom: 1px solid var(--rule);
+  }
+
+  .topbar-inner {
+    display: flex;
+    justify-content: space-between;
+    gap: var(--sp-4);
+    padding-block: var(--sp-1);
+    font-size: var(--text-xs);
+    color: var(--ink-2);
+  }
+
+  .tagline {
+    font-style: italic;
+    font-family: var(--font-serif);
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+
+  .dateline {
+    white-space: nowrap;
+    font-variant-numeric: tabular-nums;
+  }
+
+  .main-row {
+    display: flex;
+    align-items: center;
+    gap: var(--sp-6);
+    padding-block: var(--sp-3);
+  }
+
+  .wordmark {
+    display: flex;
+    align-items: baseline;
+    gap: 2px;
+    font-family: var(--font-serif);
+    font-weight: 800;
+    font-size: clamp(1.5rem, 1.2rem + 1.2vw, 2rem);
+    letter-spacing: -0.02em;
+    line-height: 1;
+  }
+
+  .wordmark:hover {
+    color: inherit;
+  }
+
+  .wordmark-com {
+    color: var(--brand);
+  }
+
+  .wordmark-est {
+    align-self: flex-end;
+    margin-left: var(--sp-2);
+    font-family: var(--font-sans);
+    font-size: var(--text-xs);
+    font-weight: 400;
+    color: var(--ink-2);
+    letter-spacing: 0.04em;
+  }
+
+  nav {
+    margin-left: auto;
+    min-width: 0;
+  }
+
+  .nav-list {
+    display: flex;
+    gap: var(--sp-6);
+    list-style: none;
+    padding: 0;
+    font-weight: 600;
+    font-size: var(--text-base);
+  }
+
+  .nav-list a {
+    padding-block: var(--sp-2);
+  }
+
+  .nav-list a[aria-current='page'] {
+    color: var(--brand);
+    box-shadow: inset 0 -2px 0 var(--brand);
+  }
+
+  .actions {
+    display: flex;
+    align-items: center;
+    gap: var(--sp-3);
+  }
+
+  #theme-toggle {
+    display: grid;
+    place-items: center;
+    width: 34px;
+    height: 34px;
+    border: 1px solid var(--rule);
+    border-radius: var(--radius);
+    background: transparent;
+    color: var(--ink-2);
+  }
+
+  #theme-toggle:hover {
+    color: var(--ink);
+    border-color: var(--ink-2);
+  }
+
+  .icon-moon {
+    display: none;
+  }
+
+  :global([data-theme='dark']) .icon-moon {
+    display: block;
+  }
+
+  :global([data-theme='dark']) .icon-sun {
+    display: none;
+  }
+
+  @media (prefers-color-scheme: dark) {
+    :global(:root:not([data-theme='light'])) .icon-moon {
+      display: block;
+    }
+
+    :global(:root:not([data-theme='light'])) .icon-sun {
+      display: none;
+    }
+  }
+
+  .donate-btn {
+    background: var(--brand);
+    color: #fff;
+    font-weight: 700;
+    font-size: var(--text-sm);
+    padding: var(--sp-2) var(--sp-4);
+    border-radius: var(--radius);
+    letter-spacing: 0.02em;
+  }
+
+  .donate-btn:hover {
+    background: var(--brand-press);
+    color: #fff;
+  }
+
+  @media (max-width: 767px) {
+    .main-row {
+      flex-wrap: wrap;
+      gap: var(--sp-3);
+    }
+
+    nav {
+      order: 3;
+      flex-basis: 100%;
+      margin-left: 0;
+      overflow-x: auto;
+      -webkit-overflow-scrolling: touch;
+    }
+
+    .nav-list {
+      gap: var(--sp-4);
+      white-space: nowrap;
+      padding-bottom: 2px;
+    }
+
+    .actions {
+      margin-left: auto;
+    }
+
+    .tagline {
+      display: none;
+    }
+
+    .topbar-inner {
+      justify-content: center;
+    }
+  }
+</style>

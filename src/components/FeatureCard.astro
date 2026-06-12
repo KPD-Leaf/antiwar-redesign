@@ -1,0 +1,103 @@
+---
+import type { Article } from '../lib/types';
+import { formatDate } from '../lib/format';
+
+interface Props {
+  article: Article;
+  showImage?: boolean;
+  kicker?: string;
+}
+
+const { article, showImage = true, kicker } = Astro.props;
+const href = article.source === 'original' ? article.url : `/${article.source}/${article.slug}`;
+---
+
+<article class="card">
+  {
+    showImage && article.image && (
+      <a class="card-media" href={href} tabindex="-1" aria-hidden="true">
+        <img src={article.image} alt="" loading="lazy" width="640" height="360" />
+      </a>
+    )
+  }
+  <div class="card-body">
+    {kicker && <p class="kicker">{kicker}</p>}
+    <h3 class="card-title">
+      <a href={href}>{article.title}</a>
+    </h3>
+    {article.excerpt && <p class="card-excerpt">{article.excerpt}</p>}
+    <p class="meta">
+      <span class="author">{article.author}</span>
+      <span class="dot" aria-hidden="true">·</span>
+      <time datetime={article.date}>{formatDate(article.date)}</time>
+    </p>
+  </div>
+</article>
+
+<style>
+  .card-media {
+    display: block;
+    margin-bottom: var(--sp-3);
+    overflow: hidden;
+    border-radius: var(--radius);
+    background: var(--rule);
+  }
+
+  .card-media img {
+    width: 100%;
+    height: auto;
+    aspect-ratio: 16 / 9;
+    object-fit: cover;
+    display: block;
+  }
+
+  .kicker {
+    font-family: var(--font-sans);
+    font-size: var(--text-xs);
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    color: var(--brand);
+    margin-bottom: var(--sp-1);
+  }
+
+  .card-title {
+    font-family: var(--font-serif);
+    font-size: var(--text-lg);
+    font-weight: 700;
+    line-height: 1.22;
+    letter-spacing: -0.01em;
+    text-wrap: balance;
+  }
+
+  .card-title a:hover {
+    color: var(--brand);
+  }
+
+  .card-excerpt {
+    margin-top: var(--sp-2);
+    font-size: var(--text-sm);
+    line-height: 1.55;
+    color: var(--ink-2);
+    display: -webkit-box;
+    -webkit-line-clamp: 3;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+  }
+
+  .meta {
+    margin-top: var(--sp-2);
+    font-family: var(--font-sans);
+    font-size: var(--text-xs);
+    color: var(--ink-2);
+    opacity: 0.85;
+  }
+
+  .author {
+    font-weight: 600;
+  }
+
+  .dot {
+    margin-inline: var(--sp-1);
+  }
+</style>

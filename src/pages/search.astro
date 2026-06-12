@@ -1,0 +1,63 @@
+---
+import SectionLayout from '../layouts/SectionLayout.astro';
+---
+
+<SectionLayout
+  title="Search — Antiwar.com"
+  description="Search Antiwar.com news, blog posts, and original analysis."
+  heading="Search"
+  intro="Search the latest news and blog articles on this site. Instant, private, and entirely in your browser."
+>
+  <div id="search" class="search-box"></div>
+
+  <p class="search-note">
+    Looking for older coverage? The full three-decade archive is searchable at
+    <a href="https://www.antiwar.com/search/" rel="external">antiwar.com/search</a>.
+  </p>
+</SectionLayout>
+
+<link rel="stylesheet" href="/pagefind/pagefind-ui.css" />
+<script is:inline src="/pagefind/pagefind-ui.js"></script>
+<script is:inline>
+  window.addEventListener('DOMContentLoaded', () => {
+    if (window.PagefindUI) {
+      new window.PagefindUI({
+        element: '#search',
+        showSubResults: false,
+        showImages: false,
+        autofocus: true,
+        translations: { placeholder: 'Search articles…' },
+      });
+    } else {
+      document.getElementById('search').innerHTML =
+        '<p style="color: var(--ink-2); font-size: var(--text-sm);">Search index unavailable in dev mode — run a production build.</p>';
+    }
+  });
+</script>
+
+<style>
+  .search-box {
+    max-width: var(--measure);
+    min-height: 24rem;
+    margin-bottom: var(--sp-8);
+
+    --pagefind-ui-primary: var(--brand);
+    --pagefind-ui-text: var(--ink);
+    --pagefind-ui-background: var(--surface);
+    --pagefind-ui-border: var(--rule);
+    --pagefind-ui-border-width: 1px;
+    --pagefind-ui-border-radius: var(--radius);
+    --pagefind-ui-font: var(--font-sans);
+  }
+
+  .search-note {
+    margin-bottom: var(--sp-4);
+    font-family: var(--font-sans);
+    font-size: var(--text-xs);
+    color: var(--ink-2);
+  }
+
+  .search-note a {
+    text-decoration: underline;
+  }
+</style>

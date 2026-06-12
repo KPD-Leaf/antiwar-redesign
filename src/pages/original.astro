@@ -1,0 +1,47 @@
+---
+import SectionLayout from '../layouts/SectionLayout.astro';
+import FeatureCard from '../components/FeatureCard.astro';
+import DonateBand from '../components/DonateBand.astro';
+import { loadContent } from '../lib/loaders';
+
+const { original } = await loadContent();
+---
+
+<SectionLayout
+  title="Antiwar.com Original — Exclusive Reporting and Analysis"
+  description="Exclusive columns, reporting, and analysis published only at Antiwar.com."
+  heading="Antiwar.com Original"
+  intro="Exclusive columns, reporting, and analysis you won't find anywhere else. Full articles publish at original.antiwar.com."
+>
+  <div class="orig-grid">
+    {original.map((a) => <FeatureCard article={a} showImage={Boolean(a.image)} />)}
+  </div>
+
+  <div class="band-slot">
+    <DonateBand />
+  </div>
+</SectionLayout>
+
+<style>
+  .orig-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: var(--sp-8) var(--sp-6);
+  }
+
+  .band-slot {
+    margin-block: var(--sp-12) var(--sp-4);
+  }
+
+  @media (max-width: 1023px) {
+    .orig-grid {
+      grid-template-columns: 1fr 1fr;
+    }
+  }
+
+  @media (max-width: 639px) {
+    .orig-grid {
+      grid-template-columns: 1fr;
+    }
+  }
+</style>

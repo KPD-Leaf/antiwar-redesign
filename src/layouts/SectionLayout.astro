@@ -1,0 +1,58 @@
+---
+import BaseLayout from './BaseLayout.astro';
+import Masthead from '../components/Masthead.astro';
+import SiteFooter from '../components/SiteFooter.astro';
+
+interface Props {
+  title: string;
+  description: string;
+  heading: string;
+  intro?: string;
+}
+
+const { title, description, heading, intro } = Astro.props;
+---
+
+<BaseLayout title={title} description={description}>
+  <Masthead />
+
+  <main id="main">
+    <div class="container">
+      <header class="section-hero">
+        <h1>{heading}</h1>
+        {intro && <p class="intro">{intro}</p>}
+      </header>
+      <slot />
+    </div>
+  </main>
+
+  <SiteFooter />
+</BaseLayout>
+
+<style>
+  main {
+    padding-block: var(--sp-8) 0;
+  }
+
+  .section-hero {
+    border-bottom: 2px solid var(--ink);
+    padding-bottom: var(--sp-4);
+    margin-bottom: var(--sp-8);
+  }
+
+  h1 {
+    font-family: var(--font-serif);
+    font-size: var(--text-2xl);
+    font-weight: 800;
+    letter-spacing: -0.015em;
+    line-height: 1.1;
+  }
+
+  .intro {
+    margin-top: var(--sp-2);
+    font-family: var(--font-serif);
+    font-size: var(--text-md);
+    color: var(--ink-2);
+    max-width: 64ch;
+  }
+</style>

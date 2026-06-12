@@ -1,0 +1,48 @@
+---
+import SectionLayout from '../../layouts/SectionLayout.astro';
+import FeatureCard from '../../components/FeatureCard.astro';
+import NewsletterBand from '../../components/NewsletterBand.astro';
+import { loadContent } from '../../lib/loaders';
+
+const { blog } = await loadContent();
+---
+
+<SectionLayout
+  title="Blog — Antiwar.com"
+  description="Quick takes, commentary, and notes from the Antiwar.com editors and contributors."
+  heading="The Antiwar.com Blog"
+  intro="Quick takes, commentary, and notes from the editors and contributors."
+>
+  <div class="blog-grid">
+    {blog.map((a) => <FeatureCard article={a} showImage={Boolean(a.image)} />)}
+  </div>
+
+  <div class="band-slot">
+    <NewsletterBand />
+  </div>
+</SectionLayout>
+
+<style>
+  .blog-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: var(--sp-8) var(--sp-6);
+  }
+
+  .band-slot {
+    margin-block: var(--sp-12) var(--sp-4);
+    max-width: 32rem;
+  }
+
+  @media (max-width: 1023px) {
+    .blog-grid {
+      grid-template-columns: 1fr 1fr;
+    }
+  }
+
+  @media (max-width: 639px) {
+    .blog-grid {
+      grid-template-columns: 1fr;
+    }
+  }
+</style>

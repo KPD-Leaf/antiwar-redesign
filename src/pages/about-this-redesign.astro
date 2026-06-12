@@ -1,0 +1,62 @@
+---
+import SectionLayout from '../layouts/SectionLayout.astro';
+
+const points = [
+  {
+    head: 'What this is',
+    body: 'An unofficial, good-faith redesign concept for Antiwar.com — built to show what the site could look and feel like on a modern stack, using the real, live content from antiwar.com feeds.',
+  },
+  {
+    head: 'What changed',
+    body: 'Semantic HTML, responsive mobile-first layout, dark mode, structured data for search engines and AI, fast static pages with zero trackers, accessible navigation, and a design system tuned for long-form news reading.',
+  },
+  {
+    head: 'What stayed the same',
+    body: 'Everything that makes Antiwar.com what it is: the hand-curated headline river, the viewpoints digest, original reporting, and the reader-funded mission. All content remains the property of Antiwar.com and the Randolph Bourne Institute.',
+  },
+  {
+    head: 'The offer',
+    body: 'The entire codebase is a gift — free to use, adapt, or ignore. It rebuilds itself from your existing WordPress and RSS feeds, so no editorial workflow has to change.',
+  },
+];
+---
+
+<SectionLayout
+  title="About This Redesign — Unofficial Antiwar.com Concept"
+  description="An unofficial redesign concept for Antiwar.com: modern, fast, accessible, and powered by the site's own live feeds."
+  heading="About this redesign"
+  intro="This site is an unofficial concept, not the real Antiwar.com. The real one is at antiwar.com — go there, and support them."
+>
+  <div class="points">
+    {
+      points.map((p) => (
+        <section>
+          <h2>{p.head}</h2>
+          <p>{p.body}</p>
+        </section>
+      ))
+    }
+  </div>
+</SectionLayout>
+
+<style>
+  .points {
+    display: grid;
+    gap: var(--sp-8);
+    max-width: var(--measure);
+    margin-bottom: var(--sp-4);
+  }
+
+  h2 {
+    font-family: var(--font-serif);
+    font-size: var(--text-lg);
+    font-weight: 700;
+    margin-bottom: var(--sp-2);
+  }
+
+  p {
+    font-size: var(--text-base);
+    line-height: 1.65;
+    color: var(--ink-2);
+  }
+</style>
