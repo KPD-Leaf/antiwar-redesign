@@ -6,6 +6,8 @@ A modern, fast, accessible front-end for [Antiwar.com](https://www.antiwar.com),
 
 > This is an **unofficial concept**, not affiliated with Antiwar.com or the Randolph Bourne Institute. All article content belongs to its original authors and publishers. The code is free to take, adapt, self-host, or ignore — no strings, no fees, no credit required.
 
+**On the Antiwar.com team and want to use this?** See **[ADOPTION.md](ADOPTION.md)** — a step-by-step guide to going live. The short version: your editors keep posting to WordPress exactly as today; the switch is a two-line config change, removing the demo banners, and pointing DNS.
+
 ## Why
 
 Same content, same homepage, measured under identical conditions (Google Lighthouse, mobile emulation, June 2026):
@@ -95,6 +97,8 @@ Each source is fetched independently and **fail-soft**: if any feed errors, that
 Articles are rendered as static pages with full attribution and links back to the original source, per Antiwar.com's reprint policy.
 
 ## Deploying
+
+**Taking this live as the real antiwar.com?** Follow the full checklist in [ADOPTION.md](ADOPTION.md).
 
 **GitHub Pages (current setup).** Fork the repo, enable Pages with "GitHub Actions" as the source, and push. The included workflow builds, deploys, and rebuilds every hour automatically.
 
