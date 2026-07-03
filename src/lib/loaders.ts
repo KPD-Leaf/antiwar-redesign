@@ -195,10 +195,14 @@ function extractOriginalBody(html: string): string {
       break;
     }
   }
-  return body
+  body = body
     .replace(/<div[^>]*class="[^"]*addtoany[\s\S]*$/, '')
     .replace(/<script[\s\S]*?<\/script>/g, '')
     .trim();
+  // Sanity check: if the anchor matched somewhere unexpected (e.g. inline
+  // CSS), the slice is garbage. Return '' so the snapshot fallback fires
+  // instead of shipping a broken body.
+  return body.includes('<p') ? body : '';
 }
 
 export function originalSlug(url: string): string {

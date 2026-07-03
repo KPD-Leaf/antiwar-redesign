@@ -2,7 +2,8 @@
 /**
  * Direct-sold ad slot. Editors manage ads in src/data/ads.json —
  * add { image, href, alt } to a slot array and the ad appears here.
- * Drop <AdSlot slot="sidebar" /> anywhere to create a new placement.
+ * Drop <AdSlot name="sidebar" /> anywhere to create a new placement.
+ * (The prop is `name`, not `slot` — `slot` is reserved by Astro.)
  */
 import ads from '../data/ads.json';
 
@@ -13,11 +14,12 @@ interface Ad {
 }
 
 interface Props {
-  slot: string;
+  name: string;
 }
 
-const { slot } = Astro.props;
-const items: Ad[] = (ads as Record<string, Ad[] | string>)[slot] as Ad[] ?? [];
+const { name } = Astro.props;
+const raw = (ads as Record<string, unknown>)[name];
+const items: Ad[] = Array.isArray(raw) ? raw : [];
 ---
 
 {

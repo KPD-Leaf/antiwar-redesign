@@ -14,6 +14,11 @@ const FMT_TIME = new Intl.DateTimeFormat('en-US', {
   timeZoneName: 'short',
 });
 
+const FMT_YEAR = new Intl.DateTimeFormat('en-US', {
+  year: 'numeric',
+  timeZone: 'America/New_York',
+});
+
 export function formatDate(iso: string): string {
   return FMT.format(new Date(iso));
 }
@@ -21,8 +26,9 @@ export function formatDate(iso: string): string {
 export function formatDateTime(iso: string): string {
   const d = new Date(iso);
   // Older pieces (e.g. the Raimondo memorial) show the full date instead of
-  // a same-year "Jun 27, 8:00 AM" style that would read as recent.
-  if (d.getFullYear() !== new Date().getFullYear()) return FMT.format(d);
+  // a same-year "Jun 27, 8:00 AM" style that would read as recent. Compare
+  // years in ET (matching the formatters), not the build machine's timezone.
+  if (FMT_YEAR.format(d) !== FMT_YEAR.format(new Date())) return FMT.format(d);
   return FMT_TIME.format(d);
 }
 
