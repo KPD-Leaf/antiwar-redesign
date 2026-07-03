@@ -43,6 +43,24 @@ bun run build      # static build into dist/ (fetches live feeds + indexes searc
 bun run preview    # serve the production build locally
 ```
 
+## Managing ads
+
+Direct-sold ads live in one file: `src/data/ads.json`. To run an ad, add an entry to a slot:
+
+```json
+{
+  "sidebar": [
+    {
+      "image": "https://example-cdn.com/sponsor-banner.png",
+      "href": "https://sponsor-site.com/",
+      "alt": "Short description of the ad"
+    }
+  ]
+}
+```
+
+Remove the entry to pull the ad. The hourly rebuild picks up changes automatically, or push to deploy immediately. The `sidebar` slot currently renders on the News and Blog pages; placing `<AdSlot slot="sidebar" />` in any template adds another placement, and new slot names can be added to `ads.json` for separately-sold positions. Each slot shows an "Advertise on Antiwar.com" link beneath the creative, matching the current site.
+
 ## Project structure
 
 ```

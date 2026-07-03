@@ -2,6 +2,7 @@
 import SectionLayout from '../../layouts/SectionLayout.astro';
 import FeatureCard from '../../components/FeatureCard.astro';
 import NewsletterBand from '../../components/NewsletterBand.astro';
+import AdSlot from '../../components/AdSlot.astro';
 import { loadContent } from '../../lib/loaders';
 
 const { blog } = await loadContent();
@@ -19,6 +20,7 @@ const { blog } = await loadContent();
 
   <div class="band-slot">
     <NewsletterBand />
+    <AdSlot slot="sidebar" />
   </div>
 </SectionLayout>
 
@@ -31,7 +33,17 @@ const { blog } = await loadContent();
 
   .band-slot {
     margin-block: var(--sp-12) var(--sp-4);
-    max-width: 32rem;
+    display: grid;
+    grid-template-columns: minmax(0, 32rem) 320px;
+    gap: var(--sp-6);
+    align-items: start;
+  }
+
+  @media (max-width: 767px) {
+    .band-slot {
+      grid-template-columns: 1fr;
+      max-width: 32rem;
+    }
   }
 
   @media (max-width: 1023px) {

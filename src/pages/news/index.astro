@@ -3,6 +3,7 @@ import SectionLayout from '../../layouts/SectionLayout.astro';
 import SectionHeader from '../../components/SectionHeader.astro';
 import FeatureCard from '../../components/FeatureCard.astro';
 import RiverList from '../../components/RiverList.astro';
+import AdSlot from '../../components/AdSlot.astro';
 import { loadContent } from '../../lib/loaders';
 
 const { news, river } = await loadContent();
@@ -23,6 +24,9 @@ const { news, river } = await loadContent();
     </section>
 
     <section aria-label="Headline river">
+      <div class="ad-spot">
+        <AdSlot slot="sidebar" />
+      </div>
       <SectionHeader title="Headline River" />
       <RiverList groups={river} />
     </section>
@@ -39,6 +43,11 @@ const { news, river } = await loadContent();
 
   .news-grid > section {
     min-width: 0;
+  }
+
+  .ad-spot {
+    max-width: 320px;
+    margin-bottom: var(--sp-6);
   }
 
   .report-list {

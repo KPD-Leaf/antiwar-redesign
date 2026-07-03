@@ -1,0 +1,10 @@
+{
+  "_readme": "Direct-sold ads. Add an object to a slot with image (URL), href (where the ad links), and alt (short description). Remove the object to pull the ad. The site rebuilds hourly, or push to deploy immediately. Slots: 'sidebar' shows on the News and Blog pages.",
+  "sidebar": [
+    {
+      "image": "https://dyn3qbr4ue2vr.cloudfront.net/2025/05/13140709322240718743.png",
+      "href": "https://defendtheguard.us/phonebank/",
+      "alt": "Defend the Guard — Help us end unconstitutional wars"
+    }
+  ]
+}

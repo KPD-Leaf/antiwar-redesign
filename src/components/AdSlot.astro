@@ -1,0 +1,74 @@
+---
+/**
+ * Direct-sold ad slot. Editors manage ads in src/data/ads.json —
+ * add { image, href, alt } to a slot array and the ad appears here.
+ * Drop <AdSlot slot="sidebar" /> anywhere to create a new placement.
+ */
+import ads from '../data/ads.json';
+
+interface Ad {
+  image: string;
+  href: string;
+  alt: string;
+}
+
+interface Props {
+  slot: string;
+}
+
+const { slot } = Astro.props;
+const items: Ad[] = (ads as Record<string, Ad[] | string>)[slot] as Ad[] ?? [];
+---
+
+{
+  items.length > 0 && (
+    <aside class="ad-slot" aria-label="Advertisement">
+      {items.map((ad) => (
+        <a class="ad" href={ad.href} target="_blank" rel="sponsored noopener">
+          <img src={ad.image} alt={ad.alt} loading="lazy" decoding="async" />
+        </a>
+      ))}
+      <p class="ad-note">
+        <a href="https://www.antiwar.com/advertise/" rel="external">Advertise on Antiwar.com</a>
+      </p>
+    </aside>
+  )
+}
+
+<style>
+  .ad-slot {
+    display: grid;
+    gap: var(--sp-3);
+  }
+
+  .ad {
+    display: block;
+    border: 1px solid var(--rule);
+    border-radius: var(--radius);
+    overflow: hidden;
+    background: var(--surface);
+  }
+
+  .ad img {
+    display: block;
+    width: 100%;
+    height: auto;
+  }
+
+  .ad-note {
+    font-family: var(--font-sans);
+    font-size: var(--text-xs);
+    text-align: center;
+    color: var(--ink-2);
+  }
+
+  .ad-note a {
+    color: var(--ink-2);
+    text-decoration: underline;
+    text-underline-offset: 2px;
+  }
+
+  .ad-note a:hover {
+    color: var(--brand);
+  }
+</style>
