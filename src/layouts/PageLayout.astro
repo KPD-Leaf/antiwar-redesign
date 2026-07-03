@@ -1,0 +1,72 @@
+---
+import SectionLayout from './SectionLayout.astro';
+
+interface Props {
+  title: string;
+  description: string;
+  heading: string;
+  intro?: string;
+}
+
+const { title, description, heading, intro } = Astro.props;
+---
+
+<SectionLayout title={title} description={description} heading={heading} intro={intro}>
+  <div class="prose">
+    <slot />
+  </div>
+</SectionLayout>
+
+<style>
+  .prose {
+    max-width: var(--measure);
+    margin-bottom: var(--sp-12);
+    font-family: var(--font-serif);
+    font-size: var(--text-md);
+    line-height: 1.65;
+  }
+
+  .prose :global(p) {
+    margin-bottom: var(--sp-4);
+  }
+
+  .prose :global(h2) {
+    font-family: var(--font-sans);
+    font-size: var(--text-sm);
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    margin-block: var(--sp-8) var(--sp-3);
+    padding-bottom: var(--sp-2);
+    border-bottom: 1px solid var(--rule);
+  }
+
+  .prose :global(a) {
+    color: var(--brand);
+    text-decoration: underline;
+    text-decoration-thickness: 1px;
+    text-underline-offset: 2px;
+  }
+
+  .prose :global(a:hover) {
+    color: var(--brand-press);
+  }
+
+  .prose :global(blockquote) {
+    margin-block: var(--sp-6);
+    padding-left: var(--sp-4);
+    border-left: 3px solid var(--brand);
+    color: var(--ink-2);
+    font-style: italic;
+  }
+
+  .prose :global(ul),
+  .prose :global(ol) {
+    margin-bottom: var(--sp-4);
+    padding-left: var(--sp-6);
+  }
+
+  .prose :global(li) {
+    margin-bottom: var(--sp-2);
+  }
+</style>

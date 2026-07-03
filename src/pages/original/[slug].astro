@@ -1,0 +1,25 @@
+---
+import ArticleLayout from '../../layouts/ArticleLayout.astro';
+import { loadContent } from '../../lib/loaders';
+import type { Article } from '../../lib/types';
+
+export async function getStaticPaths() {
+  const { original, originalExtras } = await loadContent();
+  const seen = new Set<string>();
+  const paths = [];
+  for (const article of [...original, ...originalExtras]) {
+    if (!article.contentHtml || seen.has(article.slug)) continue;
+    seen.add(article.slug);
+    paths.push({ params: { slug: article.slug }, props: { article } });
+  }
+  return paths;
+}
+
+interface Props {
+  article: Article;
+}
+
+const { article } = Astro.props;
+---
+
+<ArticleLayout article={article} sectionLabel="Opinion" sectionHref="/original" />

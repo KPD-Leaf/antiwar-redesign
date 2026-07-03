@@ -19,7 +19,11 @@ export function formatDate(iso: string): string {
 }
 
 export function formatDateTime(iso: string): string {
-  return FMT_TIME.format(new Date(iso));
+  const d = new Date(iso);
+  // Older pieces (e.g. the Raimondo memorial) show the full date instead of
+  // a same-year "Jun 27, 8:00 AM" style that would read as recent.
+  if (d.getFullYear() !== new Date().getFullYear()) return FMT.format(d);
+  return FMT_TIME.format(d);
 }
 
 export function readingTime(html: string): string {

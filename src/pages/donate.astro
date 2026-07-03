@@ -1,5 +1,6 @@
 ---
 import SectionLayout from '../layouts/SectionLayout.astro';
+import { withBase } from '../lib/url';
 
 const reasons = [
   {
@@ -17,9 +18,9 @@ const reasons = [
 ];
 
 const ways = [
-  { label: 'Donate online', href: 'https://www.antiwar.com/donate/', note: 'Card, PayPal, or bank — one-time or monthly' },
-  { label: 'Other ways to give', href: 'https://www.antiwar.com/donate/', note: 'Check, stock, crypto, or planned giving' },
-  { label: 'Shop the store', href: 'https://www.antiwar.com/shops.php', note: 'Books and merch that support the mission' },
+  { label: 'Donate online', href: 'https://www.antiwar.com/donate/', note: 'Card, PayPal, or bank — one-time or monthly', external: true },
+  { label: 'Other ways to give', href: 'https://www.antiwar.com/donate/', note: 'Check, stock, crypto, or planned giving', external: true },
+  { label: 'Shop the store', href: withBase('/shop'), note: 'Books and merch that support the mission', external: false },
 ];
 ---
 
@@ -47,7 +48,7 @@ const ways = [
         {
           ways.map((w) => (
             <li>
-              <a href={w.href} rel="external">{w.label} &rarr;</a>
+              <a href={w.href} rel={w.external ? 'external' : undefined}>{w.label} &rarr;</a>
               <p>{w.note}</p>
             </li>
           ))

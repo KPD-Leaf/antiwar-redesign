@@ -30,7 +30,7 @@ Faster pages keep readers, rank higher on search, and cost less bandwidth for a 
 - **Private, instant search** — [Pagefind](https://pagefind.app) full-text search across news, blog, and original articles. Runs entirely in the browser; no search server, no query logging.
 - **Structured data** — `NewsArticle` and `NewsMediaOrganization` JSON-LD, sitemap, canonical URLs, and Open Graph tags on every page.
 - **Accessible** — semantic HTML, skip links, keyboard navigation, AA contrast, reduced-motion support, dark mode (system preference + manual toggle).
-- **Zero trackers** — no analytics, no ad tech, no third-party JavaScript.
+- **Lightweight by default** — the redesign ships no third-party JavaScript of its own, so pages stay fast. Ad slots and analytics can be dropped in wherever they're needed.
 
 ## Quick start
 
@@ -93,6 +93,7 @@ All internal links go through the `withBase()` helper, so changing the base is a
 
 - **Colors, fonts, spacing** — everything is a CSS custom property in `src/styles/tokens.css` (brand red, navy, type scale, dark-mode palette). Change a token, change the whole site.
 - **Layout** — the homepage grid lives in `src/pages/index.astro`; the masthead and nav in `src/components/Masthead.astro`.
+- **Top Story** — algorithmic by default (newest news article with an image). To hand-pick it editorially, set `LEAD_SLUG` at the top of `src/pages/index.astro` to the slug of any news post; it falls back to the algorithmic pick if that slug isn't in the feed.
 - **Sections** — adding a feed means one loader in `src/lib/loaders.ts` and one page under `src/pages/`.
 
 ## License & attribution

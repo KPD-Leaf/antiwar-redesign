@@ -11,9 +11,9 @@ const today = new Intl.DateTimeFormat('en-US', {
 
 const nav = [
   { label: 'News', href: withBase('/news') },
-  { label: 'Viewpoints', href: withBase('/viewpoints') },
-  { label: 'Original', href: withBase('/original') },
+  { label: 'Opinion', href: withBase('/original') },
   { label: 'Blog', href: withBase('/blog') },
+  { label: 'Viewpoints', href: withBase('/viewpoints') },
   { label: 'Search', href: withBase('/search') },
 ];
 
@@ -157,7 +157,6 @@ const path = Astro.url.pathname;
   }
 
   .wordmark-est {
-    align-self: flex-end;
     margin-left: var(--sp-2);
     font-family: var(--font-sans);
     font-size: var(--text-xs);

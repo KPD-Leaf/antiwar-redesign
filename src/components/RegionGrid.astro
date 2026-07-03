@@ -1,0 +1,101 @@
+---
+import type { RegionGroup } from '../lib/types';
+
+interface Props {
+  regions: RegionGroup[];
+}
+
+const { regions } = Astro.props;
+---
+
+<div class="regions">
+  {
+    regions.map((region) => (
+      <section class="region">
+        <h3 class="region-name">{region.name}</h3>
+        <ul>
+          {region.items.map((item) => (
+            <li>
+              <a href={item.url} rel={item.sourceLabel ? 'external' : undefined}>
+                {item.title}
+              </a>
+              {item.sourceLabel && <span class="source">{item.sourceLabel}</span>}
+            </li>
+          ))}
+        </ul>
+      </section>
+    ))
+  }
+</div>
+
+<style>
+  .regions {
+    columns: 3;
+    column-gap: var(--sp-8);
+  }
+
+  .region {
+    break-inside: avoid;
+    margin-bottom: var(--sp-6);
+  }
+
+  .region-name {
+    font-family: var(--font-sans);
+    font-size: var(--text-xs);
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    color: var(--ink-2);
+    padding-bottom: var(--sp-2);
+    border-bottom: 1px solid var(--rule);
+    margin-bottom: var(--sp-2);
+  }
+
+  ul {
+    list-style: none;
+    padding: 0;
+  }
+
+  li {
+    padding-block: var(--sp-2);
+    border-bottom: 1px solid var(--rule);
+    font-family: var(--font-serif);
+    font-size: var(--text-base);
+    line-height: 1.35;
+  }
+
+  li:last-child {
+    border-bottom: none;
+  }
+
+  li a {
+    font-weight: 500;
+  }
+
+  li a:hover {
+    color: var(--brand);
+  }
+
+  .source {
+    margin-left: var(--sp-2);
+    font-family: var(--font-sans);
+    font-size: 0.6875rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    color: var(--ink-2);
+    white-space: nowrap;
+  }
+
+  @media (max-width: 1023px) {
+    .regions {
+      columns: 2;
+    }
+  }
+
+  @media (max-width: 639px) {
+    .regions {
+      columns: 1;
+    }
+  }
+</style>

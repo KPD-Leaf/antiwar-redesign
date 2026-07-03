@@ -1,17 +1,17 @@
 ---
-import SectionLayout from '../layouts/SectionLayout.astro';
-import FeatureCard from '../components/FeatureCard.astro';
-import DonateBand from '../components/DonateBand.astro';
-import { loadContent } from '../lib/loaders';
+import SectionLayout from '../../layouts/SectionLayout.astro';
+import FeatureCard from '../../components/FeatureCard.astro';
+import DonateBand from '../../components/DonateBand.astro';
+import { loadContent } from '../../lib/loaders';
 
 const { original } = await loadContent();
 ---
 
 <SectionLayout
-  title="Antiwar.com Original — Exclusive Reporting and Analysis"
-  description="Exclusive columns, reporting, and analysis published only at Antiwar.com."
-  heading="Antiwar.com Original"
-  intro="Exclusive columns, reporting, and analysis you won't find anywhere else. Full articles publish at original.antiwar.com."
+  title="Opinion — Antiwar.com Original"
+  description="Exclusive opinion columns and analysis published only at Antiwar.com."
+  heading="Opinion"
+  intro="Antiwar.com Original: exclusive columns and analysis you won't find anywhere else."
 >
   <div class="orig-grid">
     {original.map((a) => <FeatureCard article={a} showImage={Boolean(a.image)} />)}

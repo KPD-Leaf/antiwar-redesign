@@ -10,7 +10,10 @@ interface Props {
 }
 
 const { article, showImage = true, kicker } = Astro.props;
-const href = article.source === 'original' ? article.url : withBase(`/${article.source}/${article.slug}`);
+const href =
+  article.source === 'original' && !article.contentHtml
+    ? article.url
+    : withBase(`/${article.source}/${article.slug}`);
 ---
 
 <article class="card">

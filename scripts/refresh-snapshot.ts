@@ -7,7 +7,7 @@ import { loadContent } from '../src/lib/loaders';
 import { writeFileSync } from 'node:fs';
 
 const content = await loadContent();
-const counts = `news=${content.news.length} blog=${content.blog.length} original=${content.original.length} river-groups=${content.river.length} viewpoints=${content.viewpoints.length}`;
+const counts = `news=${content.news.length} blog=${content.blog.length} original=${content.original.length} original-extras=${content.originalExtras.length} river-groups=${content.river.length} viewpoints=${content.viewpoints.length} regions=${content.regions.length} columnists=${content.columnists.length}`;
 
 const out = new URL('../src/data/snapshot.json', import.meta.url).pathname;
 writeFileSync(out, JSON.stringify(content, null, 1));

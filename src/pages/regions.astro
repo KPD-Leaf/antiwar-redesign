@@ -1,0 +1,24 @@
+---
+import SectionLayout from '../layouts/SectionLayout.astro';
+import RegionGrid from '../components/RegionGrid.astro';
+import { loadContent } from '../lib/loaders';
+
+const { regions } = await loadContent();
+---
+
+<SectionLayout
+  title="Regional News — Antiwar.com"
+  description="Antiwar.com's hand-curated regional news sections: Gaza, Israel/Palestine, Russia/Ukraine, The War at Home, and more."
+  heading="Regional News"
+  intro="Hand-curated coverage organized by the world's conflict zones and hotspots."
+>
+  <div class="regions-slot">
+    <RegionGrid regions={regions} />
+  </div>
+</SectionLayout>
+
+<style>
+  .regions-slot {
+    margin-bottom: var(--sp-12);
+  }
+</style>

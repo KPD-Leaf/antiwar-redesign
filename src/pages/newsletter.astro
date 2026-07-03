@@ -1,0 +1,132 @@
+---
+import PageLayout from '../layouts/PageLayout.astro';
+import { withBase } from '../lib/url';
+---
+
+<PageLayout
+  title="Newsletter — Antiwar.com"
+  description="Subscribe to the free Antiwar.com newsletter: daily news digests and the weekly roundup, delivered by email."
+  heading="Newsletter"
+  intro="Our free newsletter keeps readers abreast of the news that appears every day at Antiwar.com, plus occasional announcements."
+>
+  <form class="signup" method="post" action="https://pr3.netatlantic.com/subscribe/subscribe.tml">
+    <input type="hidden" name="confirm" value="one" />
+    <input type="hidden" name="showconfirm" value="T" />
+
+    <div class="field">
+      <label for="nl-email">Email address</label>
+      <input id="nl-email" type="email" name="email" required autocomplete="email" placeholder="you@example.com" />
+    </div>
+
+    <div class="field">
+      <label for="nl-name">Name <span class="optional">(optional)</span></label>
+      <input id="nl-name" type="text" name="name" autocomplete="name" placeholder="Your name" />
+    </div>
+
+    <fieldset class="lists">
+      <legend>Choose your lists</legend>
+      <label class="check">
+        <input type="checkbox" name="list" value="antiwar-pr3" checked />
+        <span><strong>Antiwar.com Daily</strong> — the day's news, viewpoints, and original columns</span>
+      </label>
+      <label class="check">
+        <input type="checkbox" name="list" value="antiwarweekly-pr3" />
+        <span><strong>Antiwar.com Weekly</strong> — a once-a-week roundup of the top stories</span>
+      </label>
+    </fieldset>
+
+    <button type="submit">Subscribe</button>
+
+    <p class="fine-print">
+      Free, and you can unsubscribe at any time. We never sell, loan, or share your email address
+      &mdash; see our <a href={withBase('/privacy')}>privacy policy</a>.
+    </p>
+  </form>
+</PageLayout>
+
+<style>
+  .signup {
+    max-width: 32rem;
+    display: grid;
+    gap: var(--sp-4);
+  }
+
+  .field {
+    display: grid;
+    gap: var(--sp-1);
+  }
+
+  label,
+  legend {
+    font-family: var(--font-sans);
+    font-size: var(--text-sm);
+    font-weight: 600;
+  }
+
+  .optional {
+    font-weight: 400;
+    color: var(--ink-2);
+  }
+
+  input[type='email'],
+  input[type='text'] {
+    font-family: var(--font-sans);
+    font-size: var(--text-base);
+    padding: var(--sp-2) var(--sp-3);
+    border: 1px solid var(--rule);
+    border-radius: var(--radius);
+    background: var(--surface);
+    color: var(--ink);
+  }
+
+  input[type='email']:focus,
+  input[type='text']:focus {
+    outline: 2px solid var(--brand);
+    outline-offset: 1px;
+  }
+
+  .lists {
+    border: 1px solid var(--rule);
+    border-radius: var(--radius);
+    padding: var(--sp-4);
+    display: grid;
+    gap: var(--sp-3);
+  }
+
+  .lists legend {
+    padding-inline: var(--sp-2);
+  }
+
+  .check {
+    display: flex;
+    gap: var(--sp-2);
+    align-items: baseline;
+    font-family: var(--font-sans);
+    font-size: var(--text-sm);
+    font-weight: 400;
+    line-height: 1.5;
+  }
+
+  button {
+    justify-self: start;
+    font-family: var(--font-sans);
+    font-size: var(--text-base);
+    font-weight: 700;
+    color: #fff;
+    background: var(--brand);
+    border: none;
+    border-radius: var(--radius);
+    padding: var(--sp-2) var(--sp-6);
+    cursor: pointer;
+  }
+
+  button:hover {
+    background: var(--brand-press);
+  }
+
+  .fine-print {
+    font-family: var(--font-sans);
+    font-size: var(--text-xs);
+    color: var(--ink-2);
+  }
+</style>

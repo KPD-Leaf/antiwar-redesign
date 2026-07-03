@@ -1,0 +1,48 @@
+---
+import PageLayout from '../layouts/PageLayout.astro';
+import { withBase } from '../lib/url';
+---
+
+<PageLayout
+  title="Contact Us — Antiwar.com"
+  description="How to reach the Antiwar.com staff: general inquiries, media requests, link submissions, article submissions, and more."
+  heading="Contact Us"
+  intro="Below are the options for contacting the Antiwar.com staff."
+>
+  <h2>General Information</h2>
+  <p>
+    For inquiries concerning <a href={withBase('/who')}>our positions, ideology, and methodology</a>,
+    use the <a href="https://www.antiwar.com/inquiries.php" rel="external">general inquiries form</a>.
+  </p>
+
+  <h2>Media Inquiries</h2>
+  <p>
+    Please use the following phone numbers for media inquiries only:
+    <strong>(323) 512-7095</strong> or <strong>(415) 504-7445</strong>.
+  </p>
+
+  <h2>Submit Links</h2>
+  <p>
+    Volunteers help us keep up with the news, so
+    <a href="https://antiwar.com/page/submit-link" rel="external">send us those links</a>!
+  </p>
+
+  <h2>Submissions</h2>
+  <p>
+    Visit <a href={withBase('/submissions')}>the submissions page</a> for article submission
+    guidelines.
+  </p>
+
+  <h2>Contribute to Antiwar.com</h2>
+  <p>
+    Antiwar.com only survives because of our generous readers. Help keep Antiwar.com going &ndash;
+    <a href={withBase('/donate')}>donate</a>!
+  </p>
+
+  <h2>Subscribe to the Newsletter</h2>
+  <p>
+    Our free <a href={withBase('/newsletter')}>newsletter</a> keeps readers abreast of the news
+    that appears every day at Antiwar.com. Subscribers also receive occasional update emails about
+    activities and Antiwar.com announcements.
+  </p>
+</PageLayout>
