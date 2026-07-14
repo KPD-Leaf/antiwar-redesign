@@ -51,7 +51,33 @@ It's a plain static site — after a build, `dist/` is just HTML/CSS files. Any 
 - **Netlify / Cloudflare Pages / Vercel** — connect the repo, set the build command to `bun run build` (or `npm run build` with Node 20+), publish directory `dist/`. Add a scheduled rebuild hook to match the hourly refresh.
 - **Your own server** — run the build on any machine on a cron and rsync `dist/` up.
 
-Content freshness = rebuild frequency. Hourly is the default; it can be every 15 minutes if you want tighter turnaround, or a webhook from WordPress can trigger an instant rebuild on publish.
+Content freshness = rebuild frequency. Hourly is the default cron; tighten it to every 15 minutes by editing one line in the workflow — or skip the wait entirely with instant publishing, below.
+
+### 4b. Instant publishing (publish → live in ~2–3 minutes)
+
+For breaking news, hourly isn't good enough. The workflow already listens for an external trigger (`repository_dispatch`), so WordPress can kick off a rebuild the moment an editor hits **Publish**:
+
+1. **Create a GitHub token** — a fine-grained personal access token scoped to this one repo with "Contents: read and write" permission (that's the scope `repository_dispatch` needs).
+2. **Make WordPress call it on publish.** Two options:
+   - **Plugin (no code):** install a webhook plugin such as [WP Webhooks](https://wordpress.org/plugins/wp-webhooks/), set it to fire on "post published," and point it at the URL below with the headers shown.
+   - **Snippet (~10 lines):** add this to the theme's `functions.php` on the `news` and `blog` WordPress installs:
+
+     ```php
+     add_action('transition_post_status', function ($new, $old, $post) {
+         if ($new !== 'publish' || $old === 'publish') return;
+         wp_remote_post('https://api.github.com/repos/YOUR-ORG/YOUR-REPO/dispatches', [
+             'headers' => [
+                 'Authorization' => 'Bearer YOUR-TOKEN',
+                 'Accept'        => 'application/vnd.github+json',
+             ],
+             'body' => wp_json_encode(['event_type' => 'publish']),
+         ]);
+     }, 10, 3);
+     ```
+
+3. That's it. Publish → webhook fires → site rebuilds and deploys, typically live in ~2–3 minutes. The hourly cron stays on as a safety net, and Opinion pieces (RSS from `original.antiwar.com`) get picked up by it too — or wire the same webhook there for instant turnaround across the board.
+
+Editors change nothing about how they work: same WordPress, same Publish button. If you're hosting on Netlify/Cloudflare Pages instead of GitHub Pages, the equivalent is a build hook URL — same idea, one POST on publish. Happy to set any of this up with you.
 
 ### 5. Cut over DNS
 
@@ -73,7 +99,7 @@ Keep `news.antiwar.com`, `original.antiwar.com`, and the WordPress installs exac
 
 | Task | How |
 | --- | --- |
-| Publish an article | Post to WordPress like always — appears on next rebuild |
+| Publish an article | Post to WordPress like always — live in ~2–3 min with [instant publishing](#4b-instant-publishing-publish--live-in-23-minutes), or on the next scheduled rebuild |
 | Run / pull an ad | Edit `src/data/ads.json` ([details](README.md#managing-ads)) |
 | Hand-pick the Top Story | Set `LEAD_SLUG` at the top of `src/pages/index.astro` |
 | Change colors / fonts / spacing | Edit tokens in `src/styles/tokens.css` |

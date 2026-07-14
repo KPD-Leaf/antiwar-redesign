@@ -7,6 +7,10 @@ on:
     # Hourly rebuild so the demo always shows antiwar.com's current headlines.
     - cron: '23 * * * *'
   workflow_dispatch:
+  # Instant publishing: lets WordPress (or anything else) trigger a rebuild on
+  # publish via a single HTTP POST to the GitHub API. See ADOPTION.md.
+  repository_dispatch:
+    types: [publish]
 
 permissions:
   contents: read
