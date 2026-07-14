@@ -77,6 +77,9 @@ src/
 scripts/
   refresh-snapshot.ts    # re-fetch feeds and update snapshot.json
   verify.ts              # Playwright screenshot pass across every template
+  go-live.ts             # one command to convert the demo into the real site (see ADOPTION.md)
+integrations/
+  antiwar-instant-publish/  # WordPress plugin: publish → site rebuilds in ~2–3 min
 .github/workflows/
   deploy.yml             # build + deploy to GitHub Pages; hourly cron rebuild
 ```

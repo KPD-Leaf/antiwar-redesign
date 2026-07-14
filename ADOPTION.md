@@ -4,6 +4,30 @@ A step-by-step guide for the Antiwar.com team: everything needed to take this re
 
 The short version: your editors keep posting to WordPress exactly as they do today. This site reads your existing feeds and APIs and republishes them as fast static pages. Switching over is a hosting/DNS change plus a two-line config edit, not a content migration.
 
+## How it fits together
+
+```mermaid
+flowchart LR
+    subgraph yours["Your side — nothing changes"]
+        editors["Editors<br/>(same Publish button)"]
+        wp["WordPress installs<br/>news · blog · original"]
+        river["Curated feeds<br/>headline river · viewpoints · columnists"]
+        editors --> wp
+    end
+
+    subgraph this["This project"]
+        build["Static build<br/>(hourly + on publish)"]
+        cdn["Pre-built pages on a CDN<br/>www.antiwar.com"]
+    end
+
+    wp -->|"REST API / RSS"| build
+    river --> build
+    build --> cdn
+    cdn --> readers["Readers<br/>(pages load in under 1s)"]
+```
+
+Everything on the left stays exactly where it is and keeps working the way it does today. The build reads from it; readers never touch it. That also means your WordPress servers stop taking public traffic, which makes them cheaper to run and irrelevant to traffic spikes.
+
 ## What doesn't change (nothing to migrate)
 
 - **Editorial workflow** — News and Blog posts keep going into WordPress at `news.antiwar.com` and `www.antiwar.com/blog`; Opinion keeps publishing to `original.antiwar.com`. The site pulls from your existing WordPress REST APIs and RSS feeds at build time. No new CMS, no retraining, no content export/import.
@@ -22,9 +46,19 @@ If you stop liking the redesign, turn it off and the old site is still there. No
 
 Either fork this repository into your own GitHub account/organization, or ask and we'll transfer it outright. The code is MIT-licensed — it's yours, no strings.
 
-### 2. Point the config at your domain (two lines)
+### 2 & 3. Run the go-live script (or do it by hand)
 
-In `astro.config.mjs`, change:
+One command does steps 2 and 3 for you — points the config at your domain and strips every demo notice:
+
+```sh
+bun run scripts/go-live.ts
+```
+
+It edits the files locally and prints what it changed; review with `git diff` and commit. (Use `--domain https://staging.antiwar.com` first if you want a staging pass.)
+
+Prefer to do it by hand? It's small:
+
+**Step 2 — point the config at your domain (two lines).** In `astro.config.mjs`, change:
 
 ```js
 site: 'https://kpd-leaf.github.io',   →   site: 'https://www.antiwar.com',
@@ -33,9 +67,7 @@ base: '/antiwar-redesign',            →   base: '/',
 
 That's the whole config change. Every internal link in the site goes through a `withBase()` helper, so nothing else needs touching — sitemaps, canonical URLs, Open Graph tags, and search all follow automatically.
 
-### 3. Remove the demo notices (three spots)
-
-These exist only because this is an unofficial concept:
+**Step 3 — remove the demo notices (three spots).** These exist only because this is an unofficial concept:
 
 | What | Where |
 | --- | --- |
@@ -59,8 +91,8 @@ For breaking news, hourly isn't good enough. The workflow already listens for an
 
 1. **Create a GitHub token** — a fine-grained personal access token scoped to this one repo with "Contents: read and write" permission (that's the scope `repository_dispatch` needs).
 2. **Make WordPress call it on publish.** Two options:
-   - **Plugin (no code):** install a webhook plugin such as [WP Webhooks](https://wordpress.org/plugins/wp-webhooks/), set it to fire on "post published," and point it at the URL below with the headers shown.
-   - **Snippet (~10 lines):** add this to the theme's `functions.php` on the `news` and `blog` WordPress installs:
+   - **Our plugin (recommended, no code):** this repo ships a ready-made WordPress plugin — [`integrations/antiwar-instant-publish`](integrations/README.md). Upload it via **Plugins → Add New → Upload Plugin**, activate, paste the repo name and token under **Settings → Instant Publish**, and click "Send Test Rebuild" to confirm. No theme editing, survives theme updates.
+   - **Snippet (~10 lines):** if you'd rather not install a plugin, add this to the theme's `functions.php` on the `news` and `blog` WordPress installs:
 
      ```php
      add_action('transition_post_status', function ($new, $old, $post) {

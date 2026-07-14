@@ -1,0 +1,53 @@
+name: Help me go live
+description: For the Antiwar.com team — answer a few questions and we'll help you take the redesign live.
+title: "Go-live help: [your name]"
+labels: ["go-live"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Thanks for considering the redesign. Answer whatever you can below — partial answers are fine, and nothing here commits you to anything. We'll follow up in this issue with a concrete plan (DNS cutover, instant publishing, redirects, design tweaks — whatever you need).
+
+        The full written guide is [ADOPTION.md](../blob/main/ADOPTION.md).
+  - type: input
+    id: who
+    attributes:
+      label: Who are you?
+      description: Name and role, so we know who we're talking to.
+      placeholder: e.g. Jane Doe, managing editor
+    validations:
+      required: true
+  - type: textarea
+    id: wordpress
+    attributes:
+      label: Where does WordPress live, and who has admin access?
+      description: Hosting provider (or self-hosted), and whether you can install plugins on the news/blog installs. Needed for instant publishing.
+      placeholder: e.g. Self-hosted on a VPS; Eric and I have admin on both installs.
+  - type: textarea
+    id: curation
+    attributes:
+      label: How are the headline river, viewpoints, and columnists curated today?
+      description: What does an editor actually do to add a link or update the columnists list?
+      placeholder: e.g. Editors paste links into an admin form that writes the river feed…
+  - type: dropdown
+    id: hosting
+    attributes:
+      label: Hosting preference for the new site
+      options:
+        - GitHub Pages (free, current setup)
+        - Netlify / Cloudflare Pages / Vercel
+        - Our own server
+        - Not sure — recommend something
+  - type: dropdown
+    id: turnaround
+    attributes:
+      label: How fast does publish-to-live need to be?
+      options:
+        - Hourly is fine
+        - A few minutes (instant publishing)
+        - Not sure
+  - type: textarea
+    id: anything-else
+    attributes:
+      label: Anything else?
+      description: Analytics you run, design changes you'd want first, legacy URLs to preserve, questions, concerns.
