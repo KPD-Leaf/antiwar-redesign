@@ -4,6 +4,16 @@ A step-by-step guide for the Antiwar.com team: everything needed to take this re
 
 The short version: your editors keep posting to WordPress exactly as they do today. This site reads your existing feeds and APIs and republishes them as fast static pages. Switching over is a hosting/DNS change plus a two-line config edit, not a content migration.
 
+## Not technical? Read this bit and skip the rest
+
+Nobody on your team needs to touch code to make this happen. Pick whichever of these suits you:
+
+1. **We do it with you.** Reply to the email that brought you here, or [open a "Help me go live" issue](../../issues/new?template=go-live-help.yml) and answer a few plain questions. We'll handle every technical step in this guide — you approve, we type.
+2. **Hand this page to any developer.** It's self-contained; a competent dev can complete it in an afternoon.
+3. **Hand this page to an AI assistant.** This guide is written step-by-step on purpose: paste it into an AI coding tool (Claude, ChatGPT, Cursor, and similar) and it can do the work — edit the config, remove the demo notices, set up hosting — while you watch and approve. **If you'd like, we'll supply the AI access and credits for this, free.** Just ask in the email thread or an issue.
+
+The rest of this document is the full detail, mostly for whoever (or whatever) does the typing.
+
 ## How it fits together
 
 ```mermaid
@@ -140,4 +150,6 @@ Keep `news.antiwar.com`, `original.antiwar.com`, and the WordPress installs exac
 
 ## Questions
 
-Open a GitHub issue on this repository, or reply to the email that brought you here. Happy to walk anyone on your team through any part of this, help with the DNS cutover, or make changes you'd want before going live.
+Open a GitHub issue on this repository (there's a ["Help me go live" template](../../issues/new?template=go-live-help.yml)), or reply to the email that brought you here. Happy to walk anyone on your team through any part of this, help with the DNS cutover, or make changes you'd want before going live.
+
+And if your team would rather work with an AI assistant on any of the integration — from the two-line config change to the WordPress webhook — say the word and we'll set you up with access and credits, free.

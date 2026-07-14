@@ -8,6 +8,8 @@ body:
       value: |
         Thanks for considering the redesign. Answer whatever you can below — partial answers are fine, and nothing here commits you to anything. We'll follow up in this issue with a concrete plan (DNS cutover, instant publishing, redirects, design tweaks — whatever you need).
 
+        Not technical? That's exactly who this form is for. We'll do the technical work with you, and if your team wants to use an AI assistant for any of it, we'll supply the access and credits free — just mention it below.
+
         The full written guide is [ADOPTION.md](../blob/main/ADOPTION.md).
   - type: input
     id: who
