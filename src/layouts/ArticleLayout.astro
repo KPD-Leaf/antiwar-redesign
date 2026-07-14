@@ -5,7 +5,7 @@ import SiteFooter from '../components/SiteFooter.astro';
 import DonateBand from '../components/DonateBand.astro';
 import type { Article } from '../lib/types';
 import { formatDateTime, readingTime } from '../lib/format';
-import { cleanArticleBody } from '../lib/article-html';
+import { cleanArticleBody, hasEarlyBodyImage } from '../lib/article-html';
 import { withBase } from '../lib/url';
 
 interface Props {
@@ -16,6 +16,9 @@ interface Props {
 
 const { article, sectionLabel, sectionHref } = Astro.props;
 const bodyHtml = cleanArticleBody(article.contentHtml, article.image);
+// Skip the injected hero when the body leads with its own (different-file)
+// image — stacking both reads as a duplicate photo.
+const showHero = Boolean(article.image) && !hasEarlyBodyImage(bodyHtml);
 
 const jsonLd = {
   '@context': 'https://schema.org',
@@ -62,7 +65,7 @@ const jsonLd = {
       </header>
 
       {
-        article.image && (
+        showHero && (
           <figure class="article-media">
             <img src={article.image} alt="" width="1200" height="675" fetchpriority="high" />
           </figure>

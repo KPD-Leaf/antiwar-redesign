@@ -61,3 +61,22 @@ export function cleanArticleBody(html: string, heroImage?: string): string {
 
   return out;
 }
+
+/**
+ * True when the (already cleaned) body opens with its own image — i.e. an
+ * <img> appears before much text has run. Posts sometimes lead with an inline
+ * photo that is a *different file* from the featured image but shows the same
+ * scene; rendering our injected hero above it reads as a duplicate. In that
+ * case the layout skips the hero and lets the editorial image lead.
+ */
+export function hasEarlyBodyImage(html: string, textThreshold = 800): boolean {
+  if (!html) return false;
+  const i = html.search(/<img\b/i);
+  if (i === -1) return false;
+  const textBefore = html
+    .slice(0, i)
+    .replace(/<[^>]+>/g, ' ')
+    .replace(/\s+/g, ' ')
+    .trim();
+  return textBefore.length < textThreshold;
+}
